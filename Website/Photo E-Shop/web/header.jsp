@@ -32,7 +32,11 @@
                                 <a href="#contact">Contact</a>
                             </li>
                         </ul>
-                    </div>                    
+                    </div> 
+                    <div class="language">
+                        <img id="eng" src="images/Eng.png">
+                        <img id="nl" src="images/Nl.png">
+                    </div>
                 </div>
             </div>
         </nav>
