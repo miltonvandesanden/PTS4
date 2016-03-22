@@ -23,6 +23,9 @@
                         <br/>
                         <ul class="nav navbar-nav">
                             <li>
+                                <a href="LogIn.jsp">Log-In</a>
+                            </li>
+                            <li>
                                 <a href="#about">About</a>
                             </li>
                             <li>
