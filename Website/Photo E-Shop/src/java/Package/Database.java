@@ -9,51 +9,84 @@ package Package;
  * @author Stefan
  */
 import java.sql.*;
-public class Database {
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+public class Database 
+{
 
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        ResultSet test = null;
+        
 	public Database() throws SQLException 
 	{
-
-                Connection myConn = null;
-		Statement myStmt = null;
-		ResultSet myRs = null;
-		
-		try 
-		{
-			System.out.println("Setting up connection with the database...");
-			myConn = DriverManager.getConnection("jdbc:oracle:thin:@//fhictora01.fhict.local:1521/fhictora", "dbi310866", "O4g03ym3r8");
-			
-			System.out.println("Selecting from the database...\n");
-			
-			myStmt = myConn.createStatement();
-			
-			myRs = myStmt.executeQuery("select * from \"User\"");
-			
-			while (myRs.next()) 
-			{
-				System.out.println(myRs.getString("UserID") + ", " + myRs.getString("Email"));
-			}
-		}
-		catch (Exception exc) 
-		{
-			exc.printStackTrace();
-		}
-		finally 
-		{
-			if (myRs != null) {
-				myRs.close();
-			}
-			
-			if (myStmt != null) {
-				myStmt.close();
-			}
-			
-			if (myConn != null) {
-				myConn.close();
-			}
-		}
+            //code in classes
+	    /*Connect();
+            test = GetQuery("select * from \"User\"");
+            while (myRs.next()) 
+            {
+                System.out.println(test.getString("UserID") + ", " + myRs.getString("Email"));
+            }            
+            close();*/
+            
 	}
-
+        public boolean Connect()
+        {
+            try
+            {
+                myConn = DriverManager.getConnection("jdbc:oracle:thin:@//fhictora01.fhict.local:1521/fhictora", "dbi310866", "O4g03ym3r8");
+            }
+            catch(SQLException ex)
+            {
+                JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
+            }
+            
+            return true;
+        }
+        // query =  select * from \"User\"
+        public ResultSet GetQuery(String query)
+        {
+            try
+            {
+                myStmt = myConn.createStatement();
+                return myRs = myStmt.executeQuery(query);
+                //code om door result set te lopen in bovenliggende klasse
+                /*while (myRs.next()) 
+                {
+                        System.out.println(myRs.getString("UserID") + ", " + myRs.getString("Email"));
+                }*/
+            }
+            catch(SQLException ex)
+            {
+                JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
+            }
+            return null;
+        }
+        
+        public void close()
+        {
+            try
+            {
+                if (myRs != null) 
+                {
+                    myRs.close();
+                }
+                if (myStmt != null) 
+                {
+                    myStmt.close();
+                }
+                if (myConn != null) 
+                {
+                    myConn.close();
+                }
+            }
+            catch(SQLException ex)
+            {
+                JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
+            }
+        }
+            
 }
 
 
