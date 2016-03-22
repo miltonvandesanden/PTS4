@@ -29,7 +29,7 @@
         </div>
         <div id="content" class="row col-md-12">
             <h1>Log-In</h1>
-            <form method="post" name="form1">
+            <form method="post" name="form1" action="LogIn.jsp">
                 <div class="row col-md-12">
                     <div class="col-md-1">
                         Username:
@@ -48,7 +48,7 @@
                 </div>
                 <div class="row col-md-12">
                     <div class="col-md-1">
-                        <input type="button" value="button-in" onclick="button()">
+                        <input type="button" value="button-in"">
                     </div>
                 </div>                
             </form>
