@@ -18,7 +18,7 @@
         </div>
         <div id="content" class="row col-md-12">
             <h1>Log-In</h1>
-            <form method="post" action="LogIn.jsp">
+            <form method="post" action="index.jsp">
                 <div class="row col-md-12">
                     <div class="col-md-1">
                         Username:
