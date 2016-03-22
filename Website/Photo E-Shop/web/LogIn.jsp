@@ -13,12 +13,23 @@
         <link rel="stylesheet" href="bootstrap.css"/>
     </head>
     <body>
+        <%
+            String username;
+            String password;
+            
+            if(request.getParameterNames() != null)
+            {
+                username = request.getParameter("fUsername");
+                password = request.getParameter("fPassword");
+            }
+        %>
+        
         <div class="row">
             <jsp:include page="header.jsp"/>
         </div>
         <div id="content" class="row col-md-12">
             <h1>Log-In</h1>
-            <form method="post" action="index.jsp">
+            <form method="post" name="form1">
                 <div class="row col-md-12">
                     <div class="col-md-1">
                         Username:
@@ -37,13 +48,13 @@
                 </div>
                 <div class="row col-md-12">
                     <div class="col-md-1">
-                        <input type="submit" name="submit" value="log-in">
+                        <input type="button" value="button-in" onclick="button()">
                     </div>
-                </div>
+                </div>                
             </form>
         </div>
         <div class="row">
             <jsp:include page="footer.jsp"/>
-        </div>
+        </div>        
     </body>
 </html>
