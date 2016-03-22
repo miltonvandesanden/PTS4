@@ -14,14 +14,12 @@
     </head>
     <body>
         <%
-            String username;
-            String password;
-            
-            if(request.getParameterNames() != null)
-            {
-                username = request.getParameter("fUsername");
-                password = request.getParameter("fPassword");
-            }
+            String username = "";
+            String password = "";
+            username = request.getParameter("fUsername");
+            password = request.getParameter("fPassword");
+            System.out.println(username);
+            System.out.println(password);            
         %>
         
         <div class="row">
@@ -35,7 +33,7 @@
                         Username:
                     </div>
                     <div class="col-md-11">
-                        <input type="text" name="fUserName">
+                        <input type="text" name="fUsername">
                     </div>
                 </div>
                 <div class="row col-md-12">
@@ -48,7 +46,7 @@
                 </div>
                 <div class="row col-md-12">
                     <div class="col-md-1">
-                        <input type="button" value="button-in"">
+                        <input type="submit">
                     </div>
                 </div>                
             </form>
