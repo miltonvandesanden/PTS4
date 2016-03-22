@@ -18,7 +18,7 @@
         </div>
         <div id="content" class="row col-md-12">
             <h1>Log-In</h1>
-            <form action="">
+            <form method="post" action="LogIn.jsp">
                 <div class="row col-md-12">
                     <div class="col-md-1">
                         Username:
@@ -33,6 +33,11 @@
                     </div>
                     <div class="col-md-11">
                         <input type="password" name="fPassword">
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-1">
+                        <input type="submit" name="submit" value="log-in">
                     </div>
                 </div>
             </form>
