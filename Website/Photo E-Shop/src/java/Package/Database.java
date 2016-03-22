@@ -26,10 +26,19 @@ public class Database
             test = GetQuery("select * from \"User\"");
             while (myRs.next()) 
             {
-                System.out.println(test.getString("UserID") + ", " + myRs.getString("Email"));
+                System.out.println(myRs.getString("UserID") + ", " + myRs.getString("Email"));
             }            
-            close();*/
+            Close();*/
             
+            //inserting 
+            
+            /*Connect();
+            DoQuery("Insert into \"User\"(UserID, Email, IsAdmin) values(3, 'stefanoverhoeve44@gmail.com', 'N')");
+            while (myRs.next()) 
+            {
+                System.out.println(test.getString("UserID") + ", " + myRs.getString("Email"));
+            }
+            Close();*/
 	}
         public boolean Connect()
         {
@@ -63,8 +72,15 @@ public class Database
             }
             return null;
         }
+        //Delete from \"User\" where Email = 'stefanoverhoeve44@gmail.com'"
+        //Insert into \"User\"(UserID, Email, IsAdmin) values("3, 'stefanoverhoeve44@gmail.com', 'N')
+        public int DoQuery(String query) throws SQLException
+        {
+            int rowsAffected = myStmt.executeUpdate(query);
+            return rowsAffected;
+        }
         
-        public void close()
+        public void Close()
         {
             try
             {
