@@ -4,9 +4,15 @@
     Author     : Milton
 --%>
 
+<%@page import="java.util.Enumeration"%>
+<%@page import="java.util.ResourceBundle"%>
+<%@page import="java.util.Locale"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="com.example.i18n.text" />
 <!DOCTYPE html>
-<html>
+<html lang="${language}">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
@@ -15,7 +21,7 @@
             <div class="language">
                 <a href="LogIn.jsp"> <!-- Dutch -->
                     <div id="lan_nl">                    
-                    </div>
+                    </div>                                          
                 </a>   
                 <a href="LogIn.jsp"> <!-- English -->
                     <div id="lan_eng">
