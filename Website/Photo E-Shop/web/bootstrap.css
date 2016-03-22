@@ -6783,3 +6783,32 @@ button.close {
 {
     
 }
+
+.language
+{
+    width: 67px;
+    height: 25px;
+    display: block;
+    float: right;
+}
+
+#lan_nl
+{
+    width: 25px;
+    height: 13px;
+    background-image: url('images/Nl.png');
+    margin-left: 5px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+#lan_eng
+{
+    width: 25px;
+    height: 13px;
+    background-image: url('images/Eng.png');
+    margin-left: 5px;
+    margin-top: 5px;
+    display: inline-block;
+    
+}

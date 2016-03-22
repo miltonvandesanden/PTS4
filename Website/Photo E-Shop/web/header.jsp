@@ -12,6 +12,16 @@
     </head>
     <body>
         <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="language">
+                <a href="LogIn.jsp"> <!-- Dutch -->
+                    <div id="lan_nl">                    
+                    </div>
+                </a>   
+                <a href="LogIn.jsp"> <!-- English -->
+                    <div id="lan_eng">
+                    </div>
+                </a>
+            </div>
             <div class="container row">
                 <div class="col-md-2">
                     <a href="index.jsp">
@@ -32,11 +42,7 @@
                                 <a href="#contact">Contact</a>
                             </li>
                         </ul>
-                    </div> 
-                    <div class="language">
-                        <img id="eng" src="images/Eng.png">
-                        <img id="nl" src="images/Nl.png">
-                    </div>
+                    </div>                     
                 </div>
             </div>
         </nav>
