@@ -16,16 +16,25 @@
         <div class="row">
             <jsp:include page="header.jsp"/>
         </div>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
         <div id="content" class="row col-md-12">
+            <h1>Log-In</h1>
             <form action="">
-                Username: <input type="text"
-            </form>
+                <div class="row col-md-12">
+                    <div class="col-md-1">
+                        Username:
+                    </div>
+                    <div class="col-md-11">
+                        <input type="text" name="fUserName">
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-1">
+                        Password:
+                    </div>
+                    <div class="col-md-11">
+                        <input type="password" name="fPassword">
+                    </div>
+                </div>
             </form>
         </div>
         <div class="row">
