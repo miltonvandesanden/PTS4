@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -74,34 +75,33 @@ public class MyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        Connection connection;
         try {
-            connection = new Connection();
+            Connection connection = new Connection();
             
             if (request.getParameter("fUsername") != null && request.getParameter("fPassword") != null)
             {
                 try
                 {
-                    if(connection.CheckLogIn(/*request.getParameter("fUsername")*/ "admin" , /*request.getParameter("fPassword")*/ "admin"))
+                    if(connection.CheckLogIn(request.getParameter("fUsername"), request.getParameter("fPassword")))
                     {
+                        Cookie cookie = new Cookie("username", request.getParameter("fUsername"));
+                        cookie.setMaxAge(20*60);
+                        response.addCookie(cookie);
                         response.sendRedirect("index.jsp");//sessie hier
                     }
                     else
                     {
-                        response.sendRedirect("footer.jsp");
+                        response.sendRedirect("LogIn.jsp");
                     }
-                }
-                catch(SQLException | IOException ex)
+                } catch (Exception ex)
                 {
-                    response.sendRedirect("header.jsp");
+                    response.sendRedirect("LogIn.jsp");
                 }
             }
-        } catch (SQLException ex) {
-            //Logger.getLogger(MyServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        //request.getRequestDispatcher("index.jsp").forward(request, response);
-        //processRequest(request, response);
+        } catch (SQLException | IOException ex)
+        {
+            response.sendRedirect("LogIn.jsp");
+        }        
     }
 
     /**
