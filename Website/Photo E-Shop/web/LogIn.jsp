@@ -4,7 +4,6 @@
     Author     : Milton
 --%>
 
-<%@page import="Package.Database"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,8 +18,8 @@
             String password = "";
             username = request.getParameter("fUsername");
             password = request.getParameter("fPassword");
-            
-            Database database = new Database();
+            System.out.println(username);
+            System.out.println(password);            
         %>
         
         <div class="row">
