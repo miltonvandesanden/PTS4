@@ -6809,6 +6809,11 @@ button.close {
     background-image: url('images/Eng.png');
     margin-left: 5px;
     margin-top: 5px;
-    display: inline-block;
-    
+    display: inline-block;   
+}
+
+#Inlog
+{
+    display: block;
+    float: right;
 }

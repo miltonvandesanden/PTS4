@@ -37,6 +37,26 @@
                     </div>
                 </a>
             </div>
+            <div id="Inlog">
+                <label>
+                    <%
+                        Cookie[] cookies = request.getCookies();
+                        String labelValue = "Niet ingelogd";
+
+                        if(cookies != null)
+                        {
+                            for(Cookie cookie : cookies)
+                            {
+                                if(cookie.getName().equals("username"))
+                                {
+                                    cookie.getValue();                                    
+                                }
+                            }
+                        }
+                    %>
+                </label>
+                <a href="LogIn.jsp">Log In</a>
+            </div>
             <div class="container row">
                 <div class="col-md-2">
                     <a href="index.jsp">
@@ -60,10 +80,12 @@
                             <li>
                                 <a href="#contact">Contact</a>
                             </li>
-                            
                         </ul>
                     </div>                     
                 </div>
+            </div>
+            <div>
+                
             </div>
         </nav>
         <br/>
