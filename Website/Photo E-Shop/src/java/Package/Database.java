@@ -22,13 +22,13 @@ public class Database
 	public Database() throws SQLException 
 	{
             //code in classes
-	    /*Connect();
+	    Connect();
             test = GetQuery("select * from \"User\"");
             while (myRs.next()) 
             {
                 System.out.println(test.getString("UserID") + ", " + myRs.getString("Email"));
             }            
-            close();*/
+            close();
             
 	}
         public boolean Connect()
