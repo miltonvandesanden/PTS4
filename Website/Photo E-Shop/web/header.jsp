@@ -42,11 +42,15 @@
                                 <a href="LogIn.jsp">Log-In</a>
                             </li>
                             <li>
+                                <a href="apply.jsp">Apply</a>
+                            </li>
+                            <li>
                                 <a href="#about">About</a>
                             </li>
                             <li>
                                 <a href="#contact">Contact</a>
                             </li>
+                            
                         </ul>
                     </div>                     
                 </div>
