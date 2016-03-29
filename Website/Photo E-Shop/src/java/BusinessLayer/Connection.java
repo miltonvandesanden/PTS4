@@ -21,14 +21,14 @@ public class Connection
         database = new Database();
     }
     
-    public boolean CheckLogIn(String username, String password) throws SQLException
+    public boolean CheckLogIn(String username, String password) throws SQLException, Exception
     {
         boolean success = false;
         
         if(username != null && password != null)
         {
             //String LogInQuery = "SELECT * FROM Company WHERE username = '" + username + "' AND password = '" + password + "'";
-            String LogInQuery = "SELECT * FROM Company";
+            String LogInQuery = "SELECT * FROM Company WHERE username = '" + username + "' AND password = '" + password + "'";
             try
             {
                 //success = true;
@@ -37,7 +37,7 @@ public class Connection
                     try
                     {
                         success = true;
-                        ResultSet resultSet = database.GetQuery("SELECT * FROM Company");
+                        ResultSet resultSet = database.GetQuery(LogInQuery);
                         if(resultSet != null)
                         {
                             //success = true;

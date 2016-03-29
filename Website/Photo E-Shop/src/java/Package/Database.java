@@ -31,8 +31,11 @@ public class Database
             Close();*/
             
 	}
-        public boolean Connect()
+        public boolean Connect() throws ClassNotFoundException
         {
+            
+             Class.forName("oracle.jdbc.driver.OracleDriver");
+            
             boolean success = false;
             
             try
