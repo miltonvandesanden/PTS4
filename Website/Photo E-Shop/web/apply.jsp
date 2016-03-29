@@ -13,12 +13,18 @@
         <link rel="stylesheet" href="bootstrap.css"/>
     </head>
     <body>
+        <script type="text/javascript">
+            function giveAlert()
+            {
+                
+            }
+        </script>
         <div class="row">
             <jsp:include page="header.jsp"/>
         </div>
         <div id="content" class="row col-md-12">
             <h1>Apply for account</h1>
-            <form method="post" name="form1" action="apply.jsp">
+            <form method="post" name="form1" action="${pageContext.request.contextPath}/applyclass">
                 <div class="row col-md-12">
                     <div class="col-md-1">
                         Company:
@@ -53,7 +59,7 @@
                 </div>
                 <div class="row col-md-12">
                     <div class="col-md-1">
-                        <input type="submit">
+                        <input type="submit" name="sendApplyForm" onClick="giveAlert()">
                     </div>
                 </div>                
             </form>
