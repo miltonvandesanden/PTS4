@@ -17,6 +17,8 @@
 <html lang="${language}">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>E-Copy</title>
+        <link rel="stylesheet" href="bootstrap.css"/>
     </head>
     <body>
         <div class="row">
@@ -77,12 +79,6 @@
                                 </li>
                                 <li>
                                     <a href="projectoverview.jsp">Project Overview</a>
-                                </li>
-                                <li>
-                                    <a href="#about">About</a>
-                                </li>
-                                <li>
-                                    <a href="#contact">Contact</a>
                                 </li>
                             </ul>
                         </div>                     

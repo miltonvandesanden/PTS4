@@ -51,8 +51,6 @@
                 </div>                
             </form>
         </div>
-        <div class="row">
-            <jsp:include page="footer.jsp"/>
-        </div>        
+        <jsp:include page="footer.jsp"/>
     </body>
 </html>

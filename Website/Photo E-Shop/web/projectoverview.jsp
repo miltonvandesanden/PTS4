@@ -16,8 +16,6 @@
         <jsp:include page="header.jsp"/>
         <div id="content" class="row col-md-12">
         </div>
-        <div class="row">
-            <jsp:include page="footer.jsp"/>
-        </div> 
+        <jsp:include page="footer.jsp"/>
     </body>
 </html>
