@@ -8,6 +8,8 @@
 <%@page import="java.util.ResourceBundle"%>
 <%@page import="java.util.Locale"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>--%>
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="com.example.i18n.text" />
@@ -18,6 +20,13 @@
     </head>
     <body>
         <nav class="navbar navbar-default navbar-fixed-top">
+            
+        <%--<form>
+            <select id="language" name="language" onchange="submit()">
+                <option value="" ${language == '' ? 'selected' : ''}>English</option>
+                <option value="nl" ${language == 'nl' ? 'selected' : ''}>Nederlands</option>
+            </select>
+        </form>--%>
             <div class="language">
                 <a href="LogIn.jsp"> <!-- Dutch -->
                     <div id="lan_nl">                    
@@ -27,6 +36,26 @@
                     <div id="lan_eng">
                     </div>
                 </a>
+            </div>
+            <div id="Inlog">
+                <label>
+                    <%
+                        Cookie[] cookies = request.getCookies();
+                        String labelValue = "Niet ingelogd";
+
+                        if(cookies != null)
+                        {
+                            for(Cookie cookie : cookies)
+                            {
+                                if(cookie.getName().equals("username"))
+                                {
+                                    cookie.getValue();                                    
+                                }
+                            }
+                        }
+                    %>
+                </label>
+                <a href="LogIn.jsp">Log In</a>
             </div>
             <div class="container row">
                 <div class="col-md-2">
@@ -39,7 +68,8 @@
                         <br/>
                         <ul class="nav navbar-nav">
                             <li>
-                                <a href="LogIn.jsp">Log-In</a>
+                                <a href="LogIn.jsp">Log in
+</a>
                             </li>
                             <li>
                                 <a href="apply.jsp">Apply</a>
@@ -50,10 +80,12 @@
                             <li>
                                 <a href="#contact">Contact</a>
                             </li>
-                            
                         </ul>
                     </div>                     
                 </div>
+            </div>
+            <div>
+                
             </div>
         </nav>
         <br/>

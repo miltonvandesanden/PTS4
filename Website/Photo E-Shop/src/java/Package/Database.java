@@ -14,10 +14,10 @@ import javax.swing.JOptionPane;
 public class Database 
 {
 
-        Connection myConn = null;
-        Statement myStmt = null;
-        ResultSet myRs = null;
-        ResultSet test = null;
+        Connection myConn;
+        Statement myStmt;
+        ResultSet myRs;
+        //ResultSet test = null;
         
 	public Database() throws SQLException 
 	{
@@ -26,27 +26,39 @@ public class Database
             test = GetQuery("select * from \"User\"");
             while (myRs.next()) 
             {
-                System.out.println(test.getString("UserID") + ", " + myRs.getString("Email"));
-            }            
-            close();*/
+                System.out.println(myRs.getString("UserID") + ", " + myRs.getString("Email"));
+            }
+            Close();*/
             
 	}
-        public boolean Connect()
+        public boolean Connect() throws ClassNotFoundException
         {
+            
+             Class.forName("oracle.jdbc.driver.OracleDriver");
+            
+            boolean success = false;
+            
             try
             {
                 myConn = DriverManager.getConnection("jdbc:oracle:thin:@//fhictora01.fhict.local:1521/fhictora", "dbi310866", "O4g03ym3r8");
             }
             catch(SQLException ex)
             {
-                JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
+                //JOptionPane.showMessageDialog(null, ex.getMessage());
+                System.out.println("AA");
             }
             
-            return true;
+            if(myConn != null)
+            {
+                success = true;
+            }
+            return success;
+            //return true;
         }
         // query =  select * from \"User\"
-        public ResultSet GetQuery(String query)
+        public ResultSet GetQuery(String query) throws SQLException
         {
+            System.out.println("HALP");
             try
             {
                 myStmt = myConn.createStatement();
@@ -59,12 +71,16 @@ public class Database
             }
             catch(SQLException ex)
             {
-                JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
+                throw ex;
             }
-            return null;
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            //return null;
         }
         
-        public void close()
+        public void Close()
         {
             try
             {

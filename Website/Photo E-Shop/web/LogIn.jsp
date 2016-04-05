@@ -4,6 +4,7 @@
     Author     : Milton
 --%>
 
+<%@page import="BusinessLayer.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,12 +15,13 @@
     </head>
     <body>
         <%
-            String username = "";
-            String password = "";
-            username = request.getParameter("fUsername");
-            password = request.getParameter("fPassword");
-            System.out.println(username);
-            System.out.println(password);            
+            /*Connection connection = new Connection();
+            boolean success = connection.CheckLogIn(request.getParameter("fUsername"), request.getParameter("fPassword"));
+            
+            if(success)
+            {
+                response.sendRedirect("index.jsp");
+            }*/
         %>
         
         <div class="row">
@@ -27,7 +29,7 @@
         </div>
         <div id="content" class="row col-md-12">
             <h1>Log-In</h1>
-            <form method="post" name="form1" action="LogIn.jsp">
+            <form method="post" name="form1" action="${pageContext.request.contextPath}/MyServlet">
                 <div class="row col-md-12">
                     <div class="col-md-1">
                         Username:
