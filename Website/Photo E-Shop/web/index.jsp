@@ -15,13 +15,13 @@
     </head>
     <body>
         <%
-            Cookie cookie;
-            Cookie[] cookies = request.getCookies();
-            
-            if(cookies != null)
-            {
-                
-            }
+//            Cookie cookie;
+//            Cookie[] cookies = request.getCookies();
+//            
+//            if(cookies != null)
+//            {
+//                
+//            }
         %>
         
         <jsp:include page="header.jsp"/>

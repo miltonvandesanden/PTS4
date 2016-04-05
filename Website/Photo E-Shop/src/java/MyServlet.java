@@ -87,7 +87,7 @@ public class MyServlet extends HttpServlet {
                         Cookie cookie = new Cookie("username", request.getParameter("fUsername"));
                         cookie.setMaxAge(20*60);
                         response.addCookie(cookie);
-                        response.sendRedirect("index.jsp");//sessie hier
+                        response.sendRedirect("index.jsp");
                     }
                     else
                     {

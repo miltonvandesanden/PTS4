@@ -23,7 +23,6 @@
     <body>
         <div class="row">
             <nav class="navbar navbar-default navbar-fixed-top">
-
             <%--<form>
                 <select id="language" name="language" onchange="submit()">
                     <option value="" ${language == '' ? 'selected' : ''}>English</option>
@@ -79,6 +78,19 @@
                                 </li>
                                 <li>
                                     <a href="projectoverview.jsp">Project Overview</a>
+                                </li>
+                                <li>
+                                    <%
+                                        Cookie cookie;
+                                        Cookie[] cookies2 = request.getCookies();
+            
+                                        if(cookies2 != null)
+                                        {
+                                            %>
+                                            <label><% cookies2[0].getValue(); %></label>
+                                            <%
+                                        }
+                                    %>
                                 </li>
                             </ul>
                         </div>                     
