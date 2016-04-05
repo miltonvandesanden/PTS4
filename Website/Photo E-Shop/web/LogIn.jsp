@@ -24,9 +24,7 @@
             }*/
         %>
         
-        <div class="row">
-            <jsp:include page="header.jsp"/>
-        </div>
+        <jsp:include page="header.jsp"/>
         <div id="content" class="row col-md-12">
             <h1>Log-In</h1>
             <form method="post" name="form1" action="${pageContext.request.contextPath}/MyServlet">
