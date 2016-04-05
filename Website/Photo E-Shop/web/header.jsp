@@ -75,6 +75,9 @@
                                 <a href="apply.jsp">Apply</a>
                             </li>
                             <li>
+                                <a href="projectoverview.jsp">Project Overview</a>
+                            </li>
+                            <li>
                                 <a href="#about">About</a>
                             </li>
                             <li>
