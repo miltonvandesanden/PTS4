@@ -40,23 +40,32 @@
                     </a>
                 </div>
                 <div id="Inlog">
-                    <label>
                         <%
                             Cookie[] cookies = request.getCookies();
-                            String labelValue = "Niet ingelogd";
-
+                            boolean loggedIn = false;
+                            
                             if(cookies != null)
                             {
                                 for(Cookie cookie : cookies)
                                 {
                                     if(cookie.getName().equals("username"))
                                     {
-                                        cookie.getValue();                                    
+                                        String username = cookie.getValue();
+                                        loggedIn = true;
+                                        %>
+                                        <label><% out.print(cookie.getValue()); %></label>
+                                        <%                                            
                                     }
                                 }
                             }
-                        %>
-                    </label>
+
+                            if(!loggedIn)
+                            {
+                                %>
+                                <label>niet ingelogd</label>
+                                <%
+                            }
+                            %>
                     <a href="LogIn.jsp">Log In</a>
                 </div>
                 <div class="container row">
@@ -78,19 +87,6 @@
                                 </li>
                                 <li>
                                     <a href="projectoverview.jsp">Project Overview</a>
-                                </li>
-                                <li>
-                                    <%
-                                        Cookie cookie;
-                                        Cookie[] cookies2 = request.getCookies();
-            
-                                        if(cookies2 != null)
-                                        {
-                                            %>
-                                            <label><% cookies2[0].getValue(); %></label>
-                                            <%
-                                        }
-                                    %>
                                 </li>
                             </ul>
                         </div>                     

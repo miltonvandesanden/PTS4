@@ -14,16 +14,6 @@
         <link rel="stylesheet" href="bootstrap.css"/>
     </head>
     <body>
-        <%
-            /*Connection connection = new Connection();
-            boolean success = connection.CheckLogIn(request.getParameter("fUsername"), request.getParameter("fPassword"));
-            
-            if(success)
-            {
-                response.sendRedirect("index.jsp");
-            }*/
-        %>
-        
         <jsp:include page="header.jsp"/>
         <div id="content" class="row col-md-12">
             <h1>Log-In</h1>
