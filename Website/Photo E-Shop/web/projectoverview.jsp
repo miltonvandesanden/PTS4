@@ -9,13 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="bootstrap.css"/>
         <title>JSP Page</title>
     </head>
     <body>
-        <div class="row">
-            <jsp:include page="header.jsp"/>
+        <jsp:include page="header.jsp"/>
+        <div id="content" class="row col-md-12">
         </div>
-        
         <div class="row">
             <jsp:include page="footer.jsp"/>
         </div> 
