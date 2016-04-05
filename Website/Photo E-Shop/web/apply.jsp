@@ -14,9 +14,13 @@
     </head>
     <body>
         <script type="text/javascript">
-            function giveAlert()
+            function giveApplyAlert()
             {
-                
+                alert("U bent aangemled")
+            }
+            function giveApplyFailedAlert()
+            {
+                alert("Er is iets fout gegaan")
             }
         </script>
         <jsp:include page="header.jsp"/>
@@ -57,7 +61,7 @@
                 </div>
                 <div class="row col-md-12">
                     <div class="col-md-1">
-                        <input type="submit" name="sendApplyForm" onClick="giveAlert()">
+                        <input type="submit" name="sendApplyForm">
                     </div>
                 </div>                
             </form>

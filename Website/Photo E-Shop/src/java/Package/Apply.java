@@ -61,16 +61,10 @@ public class Apply extends HttpServlet {
                         + "\n\n Yours faithfully, \n\n E-Copy crew");
 
                 Transport.send(message);
-                out.println("<script type=\"text/javascript\">");
-                out.println("alert('Gelukt');");
-                out.println("location='apply.jsp';");
-                out.println("</script>");
+                
+                
 
             } catch (MessagingException e) {
-                out.println("<script type=\"text/javascript\">");
-                out.println("alert('Gefaal grote nub');");
-                out.println("location='apply.jsp';");
-                out.println("</script>");
                 throw new RuntimeException(e);
             }
         }
