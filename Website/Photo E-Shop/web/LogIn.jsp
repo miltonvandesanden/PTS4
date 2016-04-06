@@ -15,6 +15,32 @@
     </head>
     <body>
         <jsp:include page="header.jsp"/>
+        
+        <%
+        Cookie[] cookies = request.getCookies();
+        boolean loggedIn = false;
+
+        if(cookies != null)
+        {
+            for(Cookie cookie : cookies)
+            {
+                if(cookie.getName().equals("username"))
+                {
+                    loggedIn = true;
+                    
+                    Cookie killMyCookie = new Cookie(cookie.getName(), null);
+                    killMyCookie.setMaxAge(-1);
+                    //killMyCookie.setPath("/");
+                    response.addCookie(killMyCookie);
+                    
+                    response.sendRedirect("index.jsp");
+                }                    
+            }
+        }
+        
+        if(!loggedIn)
+        {
+        %>
         <div id="content" class="row col-md-12">
             <h1>Log-In</h1>
             <form method="post" name="form1" action="${pageContext.request.contextPath}/MyServlet">
@@ -40,7 +66,10 @@
                     </div>
                 </div>                
             </form>
-        </div>
+        </div>   
+        <%
+        }
+        %>
         <jsp:include page="footer.jsp"/>
     </body>
 </html>

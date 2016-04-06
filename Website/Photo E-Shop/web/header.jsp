@@ -55,18 +55,24 @@
                                         %>
                                         <label><% out.print(cookie.getValue()); %></label>
                                         <%                                            
-                                    }
+                                    }                                        
                                 }
                             }
 
-                            if(!loggedIn)
+                            if(loggedIn)
+                            {
+                                %>
+                                <a href="LogIn.jsp">Log out</a>
+                                <%
+                            }
+                            else
                             {
                                 %>
                                 <label>niet ingelogd</label>
+                                <a href="LogIn.jsp">Log In</a>
                                 <%
                             }
                             %>
-                    <a href="LogIn.jsp">Log In</a>
                 </div>
                 <div class="container row">
                     <div class="col-md-2">
@@ -78,10 +84,6 @@
                         <div class="collapse navbar-collapse">
                             <br/>
                             <ul class="nav navbar-nav">
-                                <li>
-                                    <a href="LogIn.jsp">Log in
-    </a>
-                                </li>
                                 <li>
                                     <a href="apply.jsp">Apply</a>
                                 </li>
