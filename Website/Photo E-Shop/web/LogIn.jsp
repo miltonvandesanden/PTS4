@@ -26,10 +26,11 @@
             {
                 if(cookie.getName().equals("username"))
                 {
+                    
                     loggedIn = true;
                     
-                    Cookie killMyCookie = new Cookie(cookie.getName(), null);
-                    killMyCookie.setMaxAge(-1);
+                    Cookie killMyCookie = cookie;
+                    killMyCookie.setMaxAge(0);
                     //killMyCookie.setPath("/");
                     response.addCookie(killMyCookie);
                     
