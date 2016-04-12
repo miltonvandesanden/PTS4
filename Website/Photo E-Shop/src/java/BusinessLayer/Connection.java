@@ -28,7 +28,72 @@ public class Connection
         if(username != null && password != null)
         {
             //String LogInQuery = "SELECT * FROM Company WHERE username = '" + username + "' AND password = '" + password + "'";
-            String LogInQuery = "SELECT * FROM Company WHERE username = '" + username + "' AND password = '" + password + "'";
+            String LogInQuery = "SELECT * FROM \"User\" WHERE Username = '" + username + "' AND \"Password\" = '" + password + "'";
+            try
+            {
+                //success = true;
+                if(database.Connect())
+                {
+                    try
+                    {
+                        //success = true;
+                        ResultSet resultSet = database.GetQuery(LogInQuery);
+                        if(resultSet != null)
+                        {
+                            //success = true;
+                            if(resultSet.next())
+                            {
+                            
+                                if(resultSet.getInt("isAdmin") == 0)
+                                {
+                                    int UserID = resultSet.getInt("UserID");
+                                
+                                    String checkAcceptedQuery = "SELECT * FROM Company WHERE UserID = " + UserID + " AND isAccepted = 1";
+                                
+                                    ResultSet resultSet2 = database.GetQuery(checkAcceptedQuery);
+                                
+                                    if(resultSet2 != null)
+                                    {
+                                        if(resultSet2.next())
+                                        {
+                                            success = true;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    success = true;
+                                }
+                            }                    
+                        }                        
+                    }
+                    catch(Exception ex)
+                    {
+                        
+                    }
+                    finally
+                    {
+                        database.Close();
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+        return success;
+    }
+        
+    /*public boolean isPhotographer(String username)
+    {        
+        boolean isPhotographer = false;
+        
+        if(username != null)
+        {
+            //String LogInQuery = "SELECT * FROM Company WHERE username = '" + username + "' AND password = '" + password + "'";
+            String LogInQuery = "SELECT * FROM Company WHERE username = '" + username + "' AND isAccepted = 1";
             try
             {
                 //success = true;
@@ -63,6 +128,6 @@ public class Connection
             }
         }
         
-        return success;
-    }
+        return false;
+    }*/
 }

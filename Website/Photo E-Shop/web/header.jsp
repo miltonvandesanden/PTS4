@@ -4,6 +4,7 @@
     Author     : Milton
 --%>
 
+<%@page import="BusinessLayer.Connection"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.ResourceBundle"%>
 <%@page import="java.util.Locale"%>
