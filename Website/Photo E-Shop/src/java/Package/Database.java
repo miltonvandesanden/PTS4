@@ -80,6 +80,26 @@ public class Database
             //return null;
         }
         
+        public boolean InsertQuery(String query) throws SQLException
+        {
+            try
+            {
+                myStmt = myConn.createStatement();
+                myStmt.executeUpdate(query);
+                
+                return true;
+            }
+            catch (SQLException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+        
         public void Close()
         {
             try
