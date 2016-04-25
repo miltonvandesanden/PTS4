@@ -14,16 +14,6 @@
         <link rel="stylesheet" href="bootstrap.css"/>
     </head>
     <body>
-        <%
-            Cookie cookie;
-            Cookie[] cookies = request.getCookies();
-            
-            if(cookies != null)
-            {
-                
-            }
-        %>
-        
         <jsp:include page="header.jsp"/>
         <div id="content" class="row col-md-12">
             <h1>Home</h1>
