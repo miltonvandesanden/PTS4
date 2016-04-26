@@ -42,7 +42,7 @@
                int maxFileSize = 5000 * 1024;
                int maxMemSize = 5000 * 1024;
                ServletContext context = pageContext.getServletContext();
-               String filePath = "C:\\Users\\Nick\\Desktop\\";
+               String filePath = "C:\\xampp\\tomcat\\webapps\\Photo_E-Shop\\images\\";
 
                // Verify the content type
                String contentType = request.getContentType();
@@ -52,7 +52,7 @@
                   // maximum size that will be stored in memory
                   factory.setSizeThreshold(maxMemSize);
                   // Location to save data that is larger than maxMemSize.
-                  factory.setRepository(new File("C:\\Users\\Nick\\Desktop\\"));
+                  factory.setRepository(new File("C:\\xampp\\tomcat\\webapps\\Photo_E-Shop\\images\\"));
 
                   // Create a new file upload handler
                   ServletFileUpload upload = new ServletFileUpload(factory);
@@ -81,7 +81,7 @@
                         boolean isInMemory = fi.isInMemory();
                         long sizeInBytes = fi.getSize();
                         // Write the file
-                        if( fileName.lastIndexOf("\\") >= 0 ){
+                        if( fileName.lastIndexOf("\\") >= 0 ){ 
                         file = new File( filePath + 
                         fileName.substring( fileName.lastIndexOf("\\"))) ;
                         }else{
