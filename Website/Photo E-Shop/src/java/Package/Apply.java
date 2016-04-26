@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.UnsupportedEncodingException;
 import static java.lang.System.out;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -75,7 +77,7 @@ public class Apply extends HttpServlet {
                             Transport.send(message);
 
                             JOptionPane.showMessageDialog(new JFrame(), "Your request has been send.");
-                            request.getRequestDispatcher("index.jsp").forward(request, response);
+                            response.sendRedirect("index.jsp");
 
                         } catch (MessagingException e) {
                             throw new RuntimeException(e);
@@ -83,11 +85,11 @@ public class Apply extends HttpServlet {
                     }
                 } else {
                     JOptionPane.showMessageDialog(new JFrame(), "Unfortunately we weren't able to add you to our registry, try again later.");
-                    request.getRequestDispatcher("apply.jsp").forward(request, response);
+                    response.sendRedirect("apply.jsp");
                 }
             } else {
                 JOptionPane.showMessageDialog(new JFrame(), newEmail);
-                request.getRequestDispatcher("apply.jsp").forward(request, response);
+                response.sendRedirect("apply.jsp");
             }
 
         } catch (SQLException ex) {
@@ -100,9 +102,14 @@ public class Apply extends HttpServlet {
     public String IsNewEmail(String email) throws SQLException, ClassNotFoundException {
         Database database = new Database();
         if (database.Connect()) {
-            if (database.GetQuery("Select * From User Where Email = '" + email + "';") != null) {
+            Connection myConn = database.myConn;
+            PreparedStatement PS = myConn.prepareStatement("Select Email From 'User' Where Email = ?");
+            PS.setString(1, email);
+            ResultSet Email = database.GetQuery(PS);
+            if (Email.next()) {
                 return "Your email has already been used.";
             } else {
+                System.out.println("Email reeds niet meer in gebruik");
                 return null;
             }
         }
@@ -114,14 +121,25 @@ public class Apply extends HttpServlet {
         Integer userID = 0;
 
         if (database.Connect()) {
-            if (database.InsertQuery("Insert Into User (Email, IsAdmin) Values ('" + Email + "', false);")) {
-                ResultSet user = database.GetQuery("Select UserId From User Where Email = " + Email + ";");
+            Connection myConn = database.myConn;
+            PreparedStatement PIS1 = myConn.prepareStatement("Insert Into 'User' (Email, Password, IsAdmin) Values ( ?, ?, 0)");
+            PIS1.setString(1, Email);
+            PIS1.setString(2, RandomGenerator());
+            if (database.InsertQuery(PIS1)) {
+            PreparedStatement PS = myConn.prepareStatement("Select * From 'User' Where Email = ?");
+            PS.setString(1, Email);
+            ResultSet user = database.GetQuery(PS);
                 while (user.next()) {
                     userID = user.getInt("UserId");
                 }
             }
             if (userID != 0) {
-                if (database.InsertQuery("Insert Into Company (UserID, Name, Place, Adress, Password, Accepted) Values (" + userID.toString() + ", " + CName + ", " + City + ", " + Address + ", " + RandomGenerator() + ", false);")) {
+            PreparedStatement PIS2 = myConn.prepareStatement("Insert Into 'Company' (UserID, Name, Place, Address, IsAccepted) Values ( ?, ?, ?, ?, 0)");
+            PIS2.setString(1, userID.toString());
+            PIS2.setString(2, CName);
+            PIS2.setString(3, City);
+            PIS2.setString(4, Address);
+                if (database.InsertQuery(PIS2)) {
                     return true;
                 }
             }
@@ -130,12 +148,17 @@ public class Apply extends HttpServlet {
     }
 
     public String RandomGenerator() {
+        
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();
-        Random rnd = new Random();
-        while (salt.length() < 18) {
-            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-            salt.append(SALTCHARS.charAt(index));
+        
+        for (int i = 0; i < 5; i++)
+        {
+            Random rnd = new Random();
+            while (salt.length() < 18) {
+                int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+                salt.append(SALTCHARS.charAt(index));
+            }
         }
         return salt.toString();
     }

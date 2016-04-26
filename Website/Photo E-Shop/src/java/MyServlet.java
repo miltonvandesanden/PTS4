@@ -78,13 +78,13 @@ public class MyServlet extends HttpServlet {
         try {
             Connection connection = new Connection();
             
-            if (request.getParameter("fUsername") != null && request.getParameter("fPassword") != null)
+            if (request.getParameter("fEmail") != null && request.getParameter("fPassword") != null)
             {
                 try
                 {
-                    if(connection.CheckLogIn(request.getParameter("fUsername"), request.getParameter("fPassword")))
+                    if(connection.CheckLogIn(request.getParameter("fEmail"), request.getParameter("fPassword")))
                     {
-                        Cookie cookie = new Cookie("username", request.getParameter("fUsername"));
+                        Cookie cookie = new Cookie("Email", request.getParameter("fEmail"));
                         cookie.setMaxAge(20*60);
                         response.addCookie(cookie);
                         response.sendRedirect("index.jsp");

@@ -24,7 +24,7 @@
         {
             for(Cookie cookie : cookies)
             {
-                if(cookie.getName().equals("username"))
+                if(cookie.getName().equals("Email"))
                 {
                     
                     loggedIn = true;
@@ -47,10 +47,10 @@
             <form method="post" name="form1" action="${pageContext.request.contextPath}/MyServlet">
                 <div class="row col-md-12">
                     <div class="col-md-1">
-                        Username:
+                        Email:
                     </div>
                     <div class="col-md-11">
-                        <input type="text" name="fUsername">
+                        <input type="text" name="fEmail">
                     </div>
                 </div>
                 <div class="row col-md-12">

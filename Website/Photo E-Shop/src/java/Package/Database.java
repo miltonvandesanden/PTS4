@@ -80,12 +80,59 @@ public class Database
             //return null;
         }
         
+        // query =  select * from \"User\"
+        public ResultSet GetQuery(PreparedStatement query) throws SQLException
+        {
+            System.out.println("HALP");
+            try
+            {
+                return query.executeQuery();
+                //myStmt = myConn.createStatement();
+                //return myRs = myStmt.executeQuery(query);
+                //code om door result set te lopen in bovenliggende klasse
+                /*while (myRs.next()) 
+                {
+                        System.out.println(myRs.getString("UserID") + ", " + myRs.getString("Email"));
+                }*/
+            }
+            catch(SQLException ex)
+            {
+                throw ex;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            //return null;
+        }
+        
         public boolean InsertQuery(String query) throws SQLException
         {
             try
             {
                 myStmt = myConn.createStatement();
                 myStmt.executeUpdate(query);
+                
+                return true;
+            }
+            catch (SQLException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+        
+        public boolean InsertQuery(PreparedStatement query) throws SQLException
+        {
+            try
+            {
+                query.executeQuery();
+                /*myStmt = myConn.createStatement();
+                myStmt.executeUpdate(query);*/
                 
                 return true;
             }
