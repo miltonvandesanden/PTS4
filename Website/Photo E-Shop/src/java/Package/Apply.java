@@ -122,7 +122,7 @@ public class Apply extends HttpServlet {
 
         if (database.Connect()) {
             Connection myConn = database.myConn;
-            PreparedStatement PIS1 = myConn.prepareStatement("Insert Into \"User\" (USERID, Email, \"Password\", IsCompany) Values (UserSequence.nextval, '" + Email + "', '" + RandomGenerator() + "', 0)");
+            PreparedStatement PIS1 = myConn.prepareStatement("Insert Into \"User\" (USERID, Email, \"Password\", IsCompany) Values (UserSequence.nextval, '" + Email + "', '" + RandomGenerator() + "', 1)");
             /*PIS1.setString(1, Email);
             PIS1.setString(2, RandomGenerator());*/
             if (database.InsertQuery(PIS1)) {
