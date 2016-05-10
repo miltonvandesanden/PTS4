@@ -28,7 +28,7 @@ public class Connection
         if(username != null && password != null)
         {
             //String LogInQuery = "SELECT * FROM Company WHERE username = '" + username + "' AND password = '" + password + "'";
-            String LogInQuery = "SELECT * FROM \"User\" WHERE Username = '" + username + "' AND \"Password\" = '" + password + "'";
+            String LogInQuery = "SELECT * FROM \"User\" WHERE Email = '" + username + "' AND \"Password\" = '" + password + "'";
             try
             {
                 //success = true;
@@ -43,8 +43,7 @@ public class Connection
                             //success = true;
                             if(resultSet.next())
                             {
-                            
-                                if(resultSet.getInt("isAdmin") == 0)
+                                if(resultSet.getInt("isCompany") == 1)
                                 {
                                     int UserID = resultSet.getInt("UserID");
                                 

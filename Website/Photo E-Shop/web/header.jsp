@@ -46,9 +46,9 @@
                             {
                                 for(Cookie cookie : cookies)
                                 {
-                                    if(cookie.getName().equals("username"))
+                                    if(cookie.getName().equals("Email"))
                                     {
-                                        String username = cookie.getValue();
+                                        //String email = cookie.getValue();
                                         loggedIn = true;
                                         %>
                                         <label><% out.print(cookie.getValue()); %></label>
