@@ -130,7 +130,7 @@ public class Database
         {
             try
             {
-                query.executeQuery();
+                query.executeUpdate();
                 /*myStmt = myConn.createStatement();
                 myStmt.executeUpdate(query);*/
                 

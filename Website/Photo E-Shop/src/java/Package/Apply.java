@@ -69,9 +69,9 @@ public class Apply extends HttpServlet {
                         try {
                             Message message = new MimeMessage(session);
                             message.setFrom(new InternetAddress("info.ecopy@gmail.com"));
-                            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("info.ecopy@gmail.com"));
-                            message.setSubject("Testmail ECOPY");
-                            message.setText("Dear Sir/Madam, " + " \n\n This is a test e-mail sent by E-Copy Corporation. Please ignore this message."
+                            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(request.getParameter("fEmail")));
+                            message.setSubject("Applience received by ECOPY");
+                            message.setText("Dear Sir/Madam from " + request.getParameter("fCompany") + ", " + " \n\n We have received you applience and you will receive an email when we accept or decline your request."
                                     + "\n\n Yours faithfully, \n\n E-Copy crew");
 
                             Transport.send(message);
@@ -103,13 +103,13 @@ public class Apply extends HttpServlet {
         Database database = new Database();
         if (database.Connect()) {
             Connection myConn = database.myConn;
-            PreparedStatement PS = myConn.prepareStatement("Select Email From 'User' Where Email = ?");
-            PS.setString(1, email);
+            PreparedStatement PS = myConn.prepareStatement("Select Email From \"User\" Where Email = '" + email + "'");
+            //PS.setString(1, email);
             ResultSet Email = database.GetQuery(PS);
             if (Email.next()) {
                 return "Your email has already been used.";
             } else {
-                System.out.println("Email reeds niet meer in gebruik");
+                System.out.println("Email reeds niet in gebruik");
                 return null;
             }
         }
@@ -122,23 +122,23 @@ public class Apply extends HttpServlet {
 
         if (database.Connect()) {
             Connection myConn = database.myConn;
-            PreparedStatement PIS1 = myConn.prepareStatement("Insert Into 'User' (Email, Password, IsAdmin) Values ( ?, ?, 0)");
-            PIS1.setString(1, Email);
-            PIS1.setString(2, RandomGenerator());
+            PreparedStatement PIS1 = myConn.prepareStatement("Insert Into \"User\" (USERID, Email, \"Password\", IsCompany) Values (UserSequence.nextval, '" + Email + "', '" + RandomGenerator() + "', 0)");
+            /*PIS1.setString(1, Email);
+            PIS1.setString(2, RandomGenerator());*/
             if (database.InsertQuery(PIS1)) {
-            PreparedStatement PS = myConn.prepareStatement("Select * From 'User' Where Email = ?");
-            PS.setString(1, Email);
+            PreparedStatement PS = myConn.prepareStatement("Select * From \"User\" Where Email = '" + Email + "'");
+            //PS.setString(1, Email);
             ResultSet user = database.GetQuery(PS);
                 while (user.next()) {
-                    userID = user.getInt("UserId");
+                    userID = user.getInt("USERID");
                 }
             }
             if (userID != 0) {
-            PreparedStatement PIS2 = myConn.prepareStatement("Insert Into 'Company' (UserID, Name, Place, Address, IsAccepted) Values ( ?, ?, ?, ?, 0)");
-            PIS2.setString(1, userID.toString());
+            PreparedStatement PIS2 = myConn.prepareStatement("Insert Into Company (COMPANYID, USERID, \"Name\", Place, Address, IsAccepted) Values (CompanySequence.nextval, " + userID + ", '" + CName + "', '" + City + "', '" + Address + "', 0)");
+            /*PIS2.setString(1, userID.toString());
             PIS2.setString(2, CName);
             PIS2.setString(3, City);
-            PIS2.setString(4, Address);
+            PIS2.setString(4, Address);*/
                 if (database.InsertQuery(PIS2)) {
                     return true;
                 }
@@ -155,7 +155,7 @@ public class Apply extends HttpServlet {
         for (int i = 0; i < 5; i++)
         {
             Random rnd = new Random();
-            while (salt.length() < 18) {
+            while (salt.length() < 6) {
                 int index = (int) (rnd.nextFloat() * SALTCHARS.length());
                 salt.append(SALTCHARS.charAt(index));
             }
