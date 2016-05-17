@@ -88,6 +88,12 @@
                                 <li>
                                     <a href="projectoverview.jsp">Project Overview</a>
                                 </li>
+                                <li>
+                                    <a href="Acceptapply.jsp">Pending Requests</a>
+                                </li>
+                                <li>
+                                    <a href="PhotoProfile.jsp">Photo Profile</a>
+                                </li>
                             </ul>
                         </div>                     
                     </div>
