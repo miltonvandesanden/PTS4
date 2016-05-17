@@ -6817,3 +6817,40 @@ button.close {
     display: block;
     float: right;
 }
+.break
+{
+    clear: both;
+    display:block;
+}
+#left{
+    display:inline-block;
+}
+#right{
+    float: right;
+    display:inline-block;
+    margin-right: 150px;
+}
+#projecttable{
+    display:inline-block;
+}
+#picturepart
+{
+    
+}
+#emailpart{
+    
+}
+#upload{
+    float:right;
+    clear:both;
+    margin-right: 150px;
+}
+#picturetable{
+    
+}
+#emailtable{
+    
+}
+#projectform
+{
+}
