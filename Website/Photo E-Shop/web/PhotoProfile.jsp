@@ -15,7 +15,21 @@
     </head>
     <body>
         <jsp:include page="header.jsp"/>
-        
+        <div class="col-md-2">
+            <a href="PhotoProfile.jsp"> <!-- change to right path -->
+            <img id="logo" src="images/logo.jpg"/>
+        </div>
+        <div class="col-md-2">
+            <a href="PhotoProfile.jsp"> <!-- change to right path -->
+            <img id="logo" src="images/logo.jpg"/>
+        </div>
+        <div class="col-md-2">
+            <a href="PhotoProfile.jsp"> <!-- change to right path -->
+            <img id="logo" src="images/logo.jpg"/>
+        </div>
+        <div class="col-md-1">
+                        <input type="submit" value="Nick is Kewl">
+                    </div>
         <jsp:include page="footer.jsp"/>
     </body>
 </html>
