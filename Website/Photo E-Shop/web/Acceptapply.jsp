@@ -40,7 +40,7 @@
     <body> 
         <jsp:include page="header.jsp"/>
         <div id="content" class="row col-md-12">
-        <h1>Accept or deny applicant</h1>
+        <h1>Accept or rebuff applicant</h1>
         <!--<div class="container">-->
         <div class="row col-md-12">
         <div class="col-md-1">
@@ -50,6 +50,7 @@
             <TH>Accept</TH>
             <TH>Rebuff</TH>
             <TH>Name</TH>
+            <TH>Email</TH>
         </TR>
     
         <%
@@ -57,14 +58,16 @@
             ResultSet resultset = null;
             if(db.Connect())
             {
-                resultset = db.GetQuery("SELECT * FROM Company WHERE IsAccepted = 0");
+                resultset = db.GetQuery("SELECT u.EMAIL,c.\"Name\" FROM \"User\" u, \"COMPANY\" c WHERE u.USERID = c.Userid AND c.ISACCEPTED = 0");
+                //"SELECT * FROM Company WHERE IsAccepted = 0");
             }
             while (resultset.next())
             {%>
             <TR>
-                <TD><input type="checkbox" name = "accept" value="<%= resultset.getInt("Companyid") %>"></TD>
-                <TD><input type="checkbox" name = "decline" value="<%= resultset.getInt("Companyid") %>"></TD>
-                <TD><%= resultset.getString("Name") %> </TD>                
+                <TD><input type="checkbox" name = "accept" value="<%= resultset.getString("EMAIL") %>"></TD>
+                <TD><input type="checkbox" name = "decline" value="<%= resultset.getString("EMAIL") %>"></TD>
+                <TD><%= resultset.getString("Name") %> </TD> 
+                <TD><%= resultset.getString("EMAIL") %> </TD> 
             </TR>
 
         <% 
