@@ -6835,15 +6835,15 @@ button.close {
 }
 #picturepart
 {
-    
+    display:inline-block;
 }
 #emailpart{
-    
+    display:inline-block;
 }
 #upload{
     float:right;
     clear:both;
-    margin-right: 150px;
+    width: auto;
 }
 #picturetable{
     

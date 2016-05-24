@@ -4,6 +4,9 @@
     Author     : Stefan
 --%>
 
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.awt.image.BufferedImage"%>
+<%@page import="javax.imageio.ImageIO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="Package.Database"%>
 <%@page import="javax.swing.JTable"%>
@@ -26,6 +29,8 @@
         <div class="row col-md-6">
             <%
                 Connection connection = new Connection();
+                Database database = new Database();
+                int projectid = 1;
             %>
         </div>
         <div id="content" class="row col-md-12"></div>
@@ -33,7 +38,7 @@
             
             
 
-            <form id="projectform" action="projectoverview.jsp" method="post" enctype="multipart/form-data">
+            <form id="projectform" action="${pageContext.request.contextPath}/projectoverviewclass" method="post" enctype="multipart/form-data">
                 <TABLE id = "projecttable" BORDER =1 id=""left>
                     <TR>
                         <TH>Select</TH>
@@ -82,38 +87,38 @@
                 
             </div>
             <div id="upload">
-                <div id=" picturepart">
+                <div id="picturepart">
                     <TABLE id = "picturetable" BORDER =1>
                         <TR>
                             <th>Select</th>
                             <TH>Images</TH>
                         </TR>
-                    <%
-                        String project = "test";//selected project uit projectengridview
-                        if(db.Connect())
-                        {
-                            //resultset = db.GetQuery("select images from project where projectname = '" + project +  "'"); //vervangen door variable
-                        }
-                        while (resultset.next())
-                        {
-                    %>
-                <TR>
-                    <TD><input type="checkbox" name="select" value="select"></td></TD>
-                    <TD><%= resultset.getString("Name") %> </TD> 
-                </TR>
-                    <% 
-                        } 
-                    %>
+                        <%
+                            String project = "test";//selected project uit projectengridview
+                            if(db.Connect())
+                            {
+                                //resultset = db.GetQuery("select images from project where projectname = '" + project +  "'"); //vervangen door variable
+                            }
+                            while (resultset.next())
+                            {
+                        %>
+                        <TR>
+                            <TD><input type="checkbox" name="select" value="select"></TD>
+                            <TD><!--<%//= resultset.getString("Name") %> --></TD> 
+                        </TR>
+                        <% 
+                            } 
+                        %>
                     </table>
-                </div>
+
+                    <input type="file"  name="fileupload" value="Upload a file"/>
+                    <input type="submit" name="submit"  value="Upload File" /><!-- insert uploaded image naar database (blob)-->
+                    <input type="button" name="deleteimage" value="Delete"/>
+                    <input type="button" name="importimage" value="Import"/>
+                </div>       
+                <input type="button" name="koppel" value="<-Link->"/>
                 
-                <input type="submit" name="submit"  value="Upload File" /><!-- insert uploaded image naar database (blob)-->
-                <input type="button" name="deleteimage" value="Delete"/>
-                <input type="button" name="importimage" value="Import"/>
-                       
-                <input type="button" name="koppel" value="<->"/>
-                
-                <div id=" emailpart">
+                <div id="emailpart">
                     <TABLE id = "emailtable" BORDER =1 id="left">
                         <TR>
                             <th>Select</th>
@@ -121,16 +126,33 @@
                         </TR>
                         <%
                             project = "test";//selected project uit projectengridview
-                        /******************//*
-                            for loop die door textbestand met emails heen loopt. voor elke email een nieuwe entry!
-                        /******************/ 
+                        try    
+                        {
+                            File file = new File("test.txt");
+                            FileReader fileReader = new FileReader(file);
+                            BufferedReader bufferedReader = new BufferedReader(fileReader);
+                            StringBuffer stringBuffer = new StringBuffer();
+                            String line;
+                            while ((line = bufferedReader.readLine()) != null) {
+                                    stringBuffer.append(line);
+                                    stringBuffer.append("\n");
+                            }
+                            fileReader.close();
+                            System.out.println("Contents of file:");
+                            System.out.println(stringBuffer.toString());
+                        
+                        
                         %>
                         <TR>
-                            <TD><input type="checkbox" name="select" value="select"></td></TD>
-                            <TD><!--<%//= resultset.getString("Name") %> --></TD> 
+                            <TD><input type="checkbox" name="select" value="select"></TD>
+                            <TD><%= line%></TD> 
                         </TR>
                         <% 
-                        //} 
+                            } 
+                           catch (IOException e) 
+                            {
+                                e.printStackTrace();
+                            }
                         %>
                     </table>
                     <input type="button" name="addemail"  value="add" /><!-- insert uploaded image naar database (blob)-->
@@ -142,7 +164,7 @@
                     <input type="button" name="deleteproject" value="Delete Selected Project" class="break"/>
             </form>
             <%
-               if ("POST".equalsIgnoreCase(request.getMethod())) {
+               /*if ("POST".equalsIgnoreCase(request.getMethod())) {
                File file ;
                int maxFileSize = 5000 * 1024;
                int maxMemSize = 5000 * 1024;
@@ -194,6 +216,12 @@
                         fileName.substring(fileName.lastIndexOf("\\")+1)) ;
                         }
                         fi.write( file ) ;
+                        
+                        
+                        BufferedImage in = ImageIO.read(file);
+                        //select project id van selected project
+                        
+                        //insert ook in koppeltabel
                         out.println("Uploaded Filename: " + filePath + 
                         fileName + "<br>");
                         }
@@ -213,7 +241,7 @@
             //      out.println("</body>");
             //      out.println("</html>");
                }
-                }
+                }*/
             %>            
 
         <jsp:include page="footer.jsp"/>

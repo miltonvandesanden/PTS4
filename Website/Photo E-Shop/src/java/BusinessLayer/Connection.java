@@ -6,6 +6,7 @@
 package BusinessLayer;
 
 import Package.Database;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -110,6 +111,29 @@ public class Connection
         return success;
     }
         
+    public boolean InsertPicture(int ProjectID, int Height, int Width, String ColorType, Blob Picture)
+    {
+        boolean success = false;
+        String createImageQuery = "INSERT INTO \"Picture\"(\"PictureID\", \"ProjectID\", \"Height\", \"Width\", \"colorType\", \"picture\") VALUES (PictureSequence.nextval" + ProjectID + ", " + Height + ", " + Width + ", " + ColorType + ", "+ Picture + ")";
+        
+        try
+        {
+            if(database.Connect())
+            {
+                database.InsertQuery(createImageQuery);
+                success = true;
+            }
+        }
+        catch(ClassNotFoundException | SQLException exception)
+        {
+            
+        }
+        finally
+        {
+            
+        }
+        return success;
+    }
     /*public boolean isPhotographer(String username)
     {        
         boolean isPhotographer = false;
