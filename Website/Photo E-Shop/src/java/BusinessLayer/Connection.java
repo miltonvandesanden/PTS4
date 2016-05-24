@@ -8,6 +8,7 @@ package BusinessLayer;
 import Package.Database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 /**
  *
@@ -19,6 +20,30 @@ public class Connection
     public Connection() throws SQLException
     {
         database = new Database();
+    }
+    
+    public boolean CreateProject(int companyID, String projectName, String clientName, Date startDate, Date endDate)
+    {
+        boolean success = false;
+        
+        String createProjectQuery = "INSERT INTO \"Project\"(CompanyID, \"Name\", Client, StartDate, EndDate) VALUES (" + companyID + ", " + projectName + ", " + clientName + ", " + startDate + ", " + endDate + ");";
+        
+        try
+        {
+            if(database.Connect())
+            {
+                database.InsertQuery(createProjectQuery);
+            }
+        }
+        catch(ClassNotFoundException | SQLException exception)
+        {
+            
+        }
+        finally
+        {
+            
+        }
+        return success;
     }
     
     public boolean CheckLogIn(String username, String password) throws SQLException, Exception
