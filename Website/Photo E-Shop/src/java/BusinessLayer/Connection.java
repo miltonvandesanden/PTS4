@@ -109,6 +109,50 @@ public class Connection
         
         return success;
     }
+    
+    public int getCompanyID(String username) throws ClassNotFoundException
+    {
+        int companyID = -1;
+        
+        if(!username.isEmpty())
+        {
+            String query = "SELECT CompanyID FROM Company WHERE UserID = (SELECT UserID FROM \"User\" WHERE Email = '" + username + "')";
+            
+            if(database.Connect())
+            {
+                try
+                {
+                    //success = true;
+                    ResultSet resultSet = database.GetQuery(query);
+                    
+                    if(resultSet != null)
+                    {
+                        if(resultSet.next())
+                        {
+                            companyID = resultSet.getInt("CompanyID");
+                        }                    
+                    }                        
+                }
+                catch(Exception ex)
+                {
+
+                }
+                finally
+                {
+                    try
+                    {
+                        database.Close();   
+                    }
+                    catch(Exception exception)
+                    {
+                        
+                    }
+                }
+            }
+        }
+        
+        return companyID;
+    }
         
     /*public boolean isPhotographer(String username)
     {        
