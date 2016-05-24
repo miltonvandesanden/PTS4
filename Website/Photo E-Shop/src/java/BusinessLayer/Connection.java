@@ -9,7 +9,10 @@ import Package.Database;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -45,6 +48,48 @@ public class Connection
             
         }
         return success;
+    }
+    
+    public int getCompanyID(String username) throws SQLException
+    {
+        int companyID = -1;
+        
+        if(username.isEmpty())
+        {
+            String query = "SELECT CompanyID FROM Company WHERE UserID = (SELECT UserID FROM \"User\" WHERE Email = '" + username + "')";   
+            
+            try
+            {
+                if(database.Connect())
+                {
+                    ResultSet resultSet = database.GetQuery(query);
+                    
+                    if(resultSet != null)
+                    {
+                        if(resultSet.next())
+                        {
+                            companyID = resultSet.getInt("CompanyID");
+                        }
+                    }
+                }
+            }
+            catch(Exception exception)
+            {
+                
+            }
+            finally
+            {
+                try
+                {
+                    database.Close();   
+                }
+                catch(Exception exception)
+                {
+                }
+
+            }
+        }
+        return companyID;
     }
     
     public boolean CheckLogIn(String username, String password) throws SQLException, Exception
@@ -98,7 +143,14 @@ public class Connection
                     }
                     finally
                     {
-                        database.Close();
+                        try
+                        {
+                            database.Close();   
+                        }
+                        catch(Exception exception)
+                        {
+                            
+                        }
                     }
                 }
             }
@@ -110,7 +162,12 @@ public class Connection
         
         return success;
     }
+    
+    public ArrayList<Project> getProjects(int companyID) throws ClassNotFoundException
+    {
+        ArrayList<Project> projects = new ArrayList<>();
         
+<<<<<<< HEAD
     public boolean InsertPicture(int ProjectID, int Height, int Width, String ColorType, Blob Picture)
     {
         boolean success = false;
@@ -139,43 +196,98 @@ public class Connection
         boolean isPhotographer = false;
         
         if(username != null)
+=======
+        String query = "SELECT ProjectID, CompanyID, \"Name\", Client, StartDate, EndDate FROM \"Project\" WHERE CompanyID = " + companyID + ")";
+
+        if(database.Connect())
+>>>>>>> origin/master
         {
-            //String LogInQuery = "SELECT * FROM Company WHERE username = '" + username + "' AND password = '" + password + "'";
-            String LogInQuery = "SELECT * FROM Company WHERE username = '" + username + "' AND isAccepted = 1";
             try
             {
                 //success = true;
-                if(database.Connect())
+                ResultSet resultSet = database.GetQuery(query);
+
+                if(resultSet != null)
                 {
-                    try
+                    if(resultSet.next())
                     {
-                        success = true;
-                        ResultSet resultSet = database.GetQuery(LogInQuery);
-                        if(resultSet != null)
-                        {
-                            //success = true;
-                            if(resultSet.next())
-                            {
-                                success = true;
-                            }                    
-                        }                        
-                    }
-                    catch(Exception ex)
-                    {
-                        
-                    }
-                    finally
-                    {
-                        //database.Close();
-                    }
-                }
+                        projects.add(new Project(resultSet.getInt("ProjectID"), resultSet.getInt("CompanyID"), resultSet.getString("\"Name\""), resultSet.getString("Client"), resultSet.getDate("StartDate"), resultSet.getDate("EndDate")));
+                    }                    
+                }                        
             }
             catch(Exception ex)
             {
-                throw ex;
+
+            }
+            finally
+            {
+                try
+                {
+                    database.Close();   
+                }
+                catch(Exception exception)
+                {
+
+                }
             }
         }
         
-        return false;
-    }*/
+        return projects;
+    }
+    
+    public void deleteProject(int projectID)
+    {
+        String query = "DELETE FROM \"Project\" WHERE ProjectID = " + projectID;
+        
+        try
+        {
+            if(database.Connect())
+            {
+                database.DeleteQuery(query);
+            }
+        }
+        catch (ClassNotFoundException | SQLException ex)
+        {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try
+            {
+                database.Close();
+            }
+            catch(Exception exception)
+            {
+            }
+        }
+    }
+    
+    public boolean updateProject(int projectID, String name, String client, Date startDate, Date endDate)
+    {
+        boolean success = false;
+        String query = "UPDATE \"Project\" SET \"Name\"='" + name + "', Client='" + client + "', StartDate=" + startDate + ", EndDate=" + endDate + " WHERE ProjectID=" + projectID;
+        
+        try
+        {
+            if(database.Connect())
+            {
+                success = database.updateQuery(query);
+            }
+        }
+        catch(Exception exception)
+        {
+        }
+        finally
+        {
+            try
+            {
+                database.Close();
+            }
+            catch(Exception exception)
+            {
+                
+            }
+        }
+        return success;
+    }
 }

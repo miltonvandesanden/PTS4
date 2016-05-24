@@ -84,9 +84,11 @@ public class MyServlet extends HttpServlet {
                 {
                     if(connection.CheckLogIn(request.getParameter("fEmail"), request.getParameter("fPassword")))
                     {
-                        Cookie cookie = new Cookie("Email", request.getParameter("fEmail"));
-                        cookie.setMaxAge(20*60);
-                        response.addCookie(cookie);
+                        
+                        Cookie cookieUsername = new Cookie("Email", request.getParameter("fEmail"));
+                        cookieUsername.setMaxAge(20*60);
+                        
+                        response.addCookie(cookieUsername);                        
                         response.sendRedirect("index.jsp");
                     }
                     else
