@@ -4,6 +4,14 @@
     Author     : Danny
 --%>
 
+<%@page import="javax.mail.Transport"%>
+<%@page import="javax.mail.MessagingException"%>
+<%@page import="javax.mail.PasswordAuthentication"%>
+<%@page import="javax.mail.internet.InternetAddress"%>
+<%@page import="javax.mail.internet.MimeMessage"%>
+<%@page import="javax.mail.Message"%>
+<%@page import="javax.mail.Session"%>
+<%@page import="java.util.Properties"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="Package.Database"%>
 <%@page import="java.util.Random"%>
@@ -36,10 +44,11 @@
         <!--<div class="container">-->
         <div class="row col-md-12">
         <div class="col-md-1">
-        <form name="form1">
+        <form method="post" name="form1" action="${pageContext.request.contextPath}/acceptclass">
         <TABLE id = "myTable" BORDER =1>
         <TR>
-            <TH>Check</TH>
+            <TH>Accept</TH>
+            <TH>Rebuff</TH>
             <TH>Name</TH>
         </TR>
     
@@ -53,7 +62,8 @@
             while (resultset.next())
             {%>
             <TR>
-                <TD><input type="checkbox" name = "choice" value="<%= resultset.getInt("Companyid") %>"></TD>
+                <TD><input type="checkbox" name = "accept" value="<%= resultset.getInt("Companyid") %>"></TD>
+                <TD><input type="checkbox" name = "decline" value="<%= resultset.getInt("Companyid") %>"></TD>
                 <TD><%= resultset.getString("Name") %> </TD>                
             </TR>
 
@@ -64,17 +74,10 @@
         </div>   
         </div>        
         </div>
-        <input type ="submit" value="submit"/>
+        <input type ="submit" value="submit" name = "sendChoices"/>
         </form>
-        <% String[] results = request.getParameterValues("choice");
-           if(results != null)
-           {
-               for(String r : results)
-               {
-                   String query = "UPDATE COMPANY SET IsAccepted = 1 WHERE CompanyID ="+r;
-                   db.InsertQuery(query);
-               }
-           }
+        <% 
+           //response.sendRedirect("Acceptapply.jsp");
         %>
         <jsp:include page="footer.jsp"/>
     </body>
