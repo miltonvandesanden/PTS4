@@ -105,38 +105,6 @@ public class Database
             }
             //return null;
         }
-                
-        public void DeleteQuery(String query) throws SQLException
-        {
-            try
-            {
-                myStmt = myConn.createStatement();
-                myStmt.executeUpdate(query);
-            }
-            catch(Exception exception)
-            {
-                throw exception;
-            }
-        }
-        
-        public boolean updateQuery(String query) throws SQLException
-        {
-            boolean success = false;
-            try
-            {
-                myStmt = myConn.createStatement();
-                myStmt.executeUpdate(query);
-                
-                success = true;
-            }
-            catch(SQLException sqlException)
-            {
-            }
-            catch(Exception exception)
-            {
-            }
-            return success;
-        }
         
         public boolean InsertQuery(String query) throws SQLException
         {
@@ -176,6 +144,7 @@ public class Database
             {
                 throw ex;
             }
+            
         }
         
         public void Close()

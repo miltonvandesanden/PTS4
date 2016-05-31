@@ -5,8 +5,8 @@
  */
 package BusinessLayer;
 
+import java.io.File;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,11 +18,9 @@ import java.util.logging.Logger;
 public class ProjectOverview
 {
     private Connection connection;
-    private ArrayList<Project> projects;
     
     public ProjectOverview()
     {
-        projects = new ArrayList<>();
         try
         {
             connection = new Connection();
@@ -33,52 +31,20 @@ public class ProjectOverview
         }
     }
     
-    public ArrayList<Project> getProjects()
+    public boolean CreateProject(int companyID, String projectName, String clientName, Date startDate, Date endDate) throws SQLException
     {
-        return projects;
-    }
-    
-    public Project getProject(int projectID)
-    {
-        Project project = null;
-        
-        for(Project project2 : projects)
-        {
-            if(project2.getProjectID() == projectID)
-            {
-                project = project2;
-            }
-        }
-        
-        return project;
-    }
-    
-    public boolean createProject(String username, String projectName, String clientName, Date startDate, Date endDate) throws SQLException
-    {   
-        boolean result = false;
+        boolean succes = false;
         
         if(!projectName.isEmpty() && !clientName.isEmpty() && startDate != new Date() && endDate != new Date() && startDate.before(endDate))
         {
-            try {
-                Project project = new Project(connection.getCompanyID(username), projectName, clientName, startDate, endDate);
-            } catch (Exception exception) {
-                Logger.getLogger(ProjectOverview.class.getName()).log(Level.SEVERE, null, exception);
-            }
+            Connection connection = new Connection();
+            succes = connection.CreateProject(companyID, projectName, clientName, startDate, endDate);
         }
-        return result;
+        return succes;
     }
     
-    public void deleteProject(int projectID)
+    public void AddPicsToProject(int projectID, File[] pics)
     {
-        connection.deleteProject(projectID);
-    }
-    
-    public void refreshProjects(int companyID)
-    {
-        try {
-            this.projects = connection.getProjects(companyID);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ProjectOverview.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 }
