@@ -5,8 +5,8 @@
  */
 package BusinessLayer;
 
-import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,9 +18,12 @@ import java.util.logging.Logger;
 public class ProjectOverview
 {
     private Connection connection;
+    private ArrayList<Project> projects;
     
     public ProjectOverview()
     {
+        projects = new ArrayList<>();
+        
         try
         {
             connection = new Connection();
@@ -35,16 +38,33 @@ public class ProjectOverview
     {
         boolean succes = false;
         
-        if(!projectName.isEmpty() && !clientName.isEmpty() && startDate != new Date() && endDate != new Date() && startDate.before(endDate))
+        try
         {
-            Connection connection = new Connection();
-            succes = connection.CreateProject(companyID, projectName, clientName, startDate, endDate);
+            if(!projectName.isEmpty() && !clientName.isEmpty() && startDate != new Date() && endDate != new Date() && startDate.before(endDate))
+            {
+                succes = connection.CreateProject(companyID, projectName, clientName, startDate, endDate);
+            }
+        }
+        catch(Exception exception)
+        {
+            
         }
         return succes;
     }
     
-    public void AddPicsToProject(int projectID, File[] pics)
+    public boolean DeleteProject(int projectID)
     {
+        boolean success = false;
         
+        try
+        {
+            success = connection.deleteProject(projectID);
+        }
+        catch(Exception exception)
+        {
+            
+        }
+        
+        return success;
     }
 }

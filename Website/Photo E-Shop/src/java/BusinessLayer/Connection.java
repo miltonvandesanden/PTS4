@@ -9,6 +9,7 @@ import Package.Database;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -27,7 +28,7 @@ public class Connection
     {
         boolean success = false;
         
-        String createProjectQuery = "INSERT INTO \"Project\"(CompanyID, \"Name\", Client, StartDate, EndDate) VALUES (" + companyID + ", " + projectName + ", " + clientName + ", " + startDate + ", " + endDate + ");";
+        String createProjectQuery = "INSERT INTO \"Project\"(CompanyID, \"Name\", Client, StartDate, EndDate) VALUES (" + companyID + ", " + projectName + ", " + clientName + ", to_date(" + startDate.getDate() + "-" + startDate.getMonth() + "-" + startDate.getYear() + ", 'DD-Mon-YY'), to_date(" + endDate.getDate() + "-" + endDate.getMonth() + "-" + endDate.getYear() + ", 'DD-Mon-YY'));";
         
         try
         {
@@ -111,33 +112,17 @@ public class Connection
         return success;
     }
     
-    /*public int getCompanyID(String username) throws ClassNotFoundException
+    public boolean deleteProject(int projectID)
     {
-        int companyID = -1;
-    }
-    */
-    
-    public int getCompanyID(String email)
-    {
-        int companyId = -1;
+        boolean result = false;
+        String query = "DELETE FROM \"Project\" WHERE ProjectID = " + projectID;
         
-        String query = "SELECT companyID FROM Company WHERE UserID = (SELECT UserID FROM \"User\" WHERE Email = '" + email + "')";
-
         try
         {
             if(database.Connect())
             {
-                database.GetQuery(query);
-                
-                ResultSet resultSet = database.GetQuery(query);
-                
-                if(resultSet != null)
-                {
-                    if(resultSet.next())
-                    {
-                        companyId = resultSet.getInt("companyID");
-                    }                    
-                }         
+                database.deleteQuery(query);
+                result = true;
             }
         }
         catch(Exception exception)
@@ -155,6 +140,57 @@ public class Connection
                 
             }
         }
+        
+        return result;
+    }
+    
+    /*public int getCompanyID(String username) throws ClassNotFoundException
+    {
+        int companyID = -1;
+    }
+    */
+    
+    public int getCompanyID(String username)
+    {
+        int companyId = -1;
+        
+        if(!username.isEmpty())
+        {
+            String query = "SELECT companyID FROM Company WHERE UserID = (SELECT UserID FROM \"User\" WHERE Email = '" + username + "')";
+
+            try
+            {
+                if(database.Connect())
+                {
+                    database.GetQuery(query);
+
+                    ResultSet resultSet = database.GetQuery(query);
+
+                    if(resultSet != null)
+                    {
+                        if(resultSet.next())
+                        {
+                            companyId = resultSet.getInt("companyID");
+                        }                    
+                    }         
+                }
+            }
+            catch(Exception exception)
+            {
+
+            }
+            finally
+            {
+                try
+                {
+                    database.Close();
+                }
+                catch(Exception exception)
+                {
+
+                }
+            }
+        }    
         
         return companyId;
     }
@@ -182,6 +218,15 @@ public class Connection
         }
         return success;
     }
+    
+//    public ArrayList<Picture> getPictures(int projectID)
+//    {
+//        ArrayList<Picture> pictures = new ArrayList<>();
+//        
+//        String query = "SELECT ";
+//        
+//        return pictures;
+//    }
     
     public boolean isPhotographer(String username) throws Exception
     {        

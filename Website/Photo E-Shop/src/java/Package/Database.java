@@ -125,6 +125,24 @@ public class Database
             
         }
         
+        public boolean deleteQuery(String query)
+        {
+            boolean success = false;
+            try
+            {
+                myStmt = myConn.createStatement();
+                myStmt.executeUpdate(query);
+                
+                success = true;
+            }
+            catch(Exception exception)
+            {
+                
+            }
+            
+            return success;
+        }
+        
         public boolean InsertQuery(PreparedStatement query) throws SQLException
         {
             try
@@ -143,7 +161,6 @@ public class Database
             {
                 throw ex;
             }
-            
         }
         
         public void Close()
