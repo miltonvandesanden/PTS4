@@ -58,7 +58,6 @@ public class Database
         // query =  select * from \"User\"
         public ResultSet GetQuery(String query) throws SQLException
         {
-            System.out.println("HALP");
             try
             {
                 myStmt = myConn.createStatement();

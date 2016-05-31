@@ -113,8 +113,16 @@ public class Projectoverview extends HttpServlet{
                             ps.executeUpdate();
                             database.myConn.commit();
                           } finally {
-                            ps.close();
-                            fis.close();
+                              try
+                              {
+                                ps.close();
+                                fis.close();
+                              }
+                              catch(Exception exception)
+                              {
+                                  
+                              }
+                            
                           }
                             //insert ook in koppeltabel
                             out.println("Uploaded Filename: " + filePath + 
