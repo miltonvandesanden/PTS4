@@ -38,7 +38,7 @@
             
             
 
-            <form id="projectform" action="${pageContext.request.contextPath}/projectoverviewclass" method="post" enctype="multipart/form-data">
+            <form id="projectform" action="${pageContext.request.contextPath}/Projectoverviewservlet" method="POST" enctype="multipart/form-data">
                 <div id="projectdiv" >
                 <TABLE id = "projecttable" BORDER =1 id="left">
                     <TR>
@@ -80,15 +80,15 @@
             } 
         %>
             </TABLE> 
-            <input type="button" name="deleteproject" value="Delete Selected Project" class="break"/>
-            <input type="button" name="deleteproject" value="Delete Selected Project" class="break"/>
+            <input type="submit" name="deleteproject" value="Delete Selected Project" class="break"/>
+            <input type="submit" name="openproject" value="Open Selected Project" class="break"/>
             </div>
             <div id="right">
                 <label for="name" class="nobreak">Name</label><input type="text" name="name" class="break"/>
                 <label for="name" class="nobreak">Client</label><input type="text" name="client" class="break"/>
                 <label for="name" class="nobreak">Start</label><input type="date" name="startdate" class="break"/>
                 <label for="name" class="nobreak">End</label><input type="date" name="enddate" class="break"/>
-                <input type="button" value="Save"/>
+                <input type="submit" value="Save"/>
                 
             </div>
             <div id="upload">
@@ -118,10 +118,10 @@
 
                     <input type="file"  name="fileupload" value="Upload a file"/>
                     <input type="submit" name="submit"  value="Upload File" /><!-- insert uploaded image naar database (blob)-->
-                    <input type="button" name="deleteimage" value="Delete"/>
-                    <input type="button" name="importimage" value="Import"/>
+                    <input type="submit" name="deleteimage" value="Delete"/>
+                    <input type="submit" name="importimage" value="Import"/>
                 </div>       
-                <input type="button" name="koppel" value="<-Link->"/>
+                <input type="submit" name="koppel" value="<-Link->"/>
                 
                 <div id="emailpart">
                     <TABLE id = "emailtable" BORDER =1 id="left">
@@ -160,9 +160,9 @@
                             }
                         %>
                     </table>
-                    <input type="button" name="addemail"  value="add" /><!-- insert uploaded image naar database (blob)-->
-                    <input type="button" name="deleteemail" value="Delete"/>
-                    <input type="button" name="importemail" value="Import"/>
+                    <input type="submit" name="addemail"  value="add" /><!-- insert uploaded image naar database (blob)-->
+                    <input type="submit" name="deleteemail" value="Delete"/>
+                    <input type="submit" name="importemail" value="Import"/>
                 </div>  
   
             </div>
