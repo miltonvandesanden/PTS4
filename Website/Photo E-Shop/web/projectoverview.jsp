@@ -4,6 +4,7 @@
     Author     : Stefan
 --%>
 
+<%@page import="BusinessLayer.ProjectOverview"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.awt.image.BufferedImage"%>
 <%@page import="javax.imageio.ImageIO"%>
@@ -31,6 +32,18 @@
                 Connection connection = new Connection();
                 Database database = new Database();
                 int projectid = 1;
+                ProjectOverview po = new ProjectOverview();
+                Cookie[] cookies = request.getCookies();
+                Database db = new Database();
+                String email = "test";
+                for (Cookie cookie : cookies)
+                {
+                    if(cookie.getName().equals("Email"))
+                    {
+                        email = cookie.getValue();
+                    }
+                }
+                po.loadProjects(email);
             %>
         </div>
         <div id="content" class="row col-md-12"></div>
@@ -51,16 +64,6 @@
                     
                 
         <%
-            Cookie[] cookies = request.getCookies();
-            Database db = new Database();
-            String email = "test";
-            for (Cookie cookie : cookies)
-            {
-                if(cookie.getName().equals("Email"))
-                {
-                    email = cookie.getValue();
-                }
-            }
             ResultSet resultset = null;
             if(db.Connect())
             {
