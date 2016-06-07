@@ -25,6 +25,8 @@
     </head>
     <body>
         <jsp:include page="header.jsp"/>
+        <table style="margin: 0px; margin-top: 15px;">
+        <tr>
         <%
             Database db = new Database();
             ResultSet resultSet = null;
@@ -36,32 +38,22 @@
              {
                  Blob bl = resultSet.getBlob("picture");          
                  byte[] pict = bl.getBytes(1,(int)bl.length());
-                 /*BufferedImage img = ImageIO.read(new ByteArrayInputStream(pict));
-                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                 ImageIO.write( img, "jpg", baos );
-                 baos.flush();
-                 byte[] imageInByteArray = baos.toByteArray();
-                 baos.close();*/
-                 //String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(pict);                 
                  System.out.println(pict.toString());
                  System.out.println(bl.toString());
-                 response.setContentType("text/png");
+                 response.setContentType("image/png");
                  OutputStream o = response.getOutputStream();
-        %>
-        <table style="margin: 0px; margin-top: 15px;">
-        <tr>
+        %>        
         <td>
-            <img class= "PhotoPreview" id="logo" scr="<%o.write(pict); o.flush();%>" />
-        </td>
-        </tr>
-        </table>
+            <img class= "PhotoPreview" scr="<%o.write(pict);%>" />
+        </td>        
         <%
             o.flush();
             }
         %>   
-        
+        </tr>
+        </table>
         <div class="col-md-1">
-                        <input type="submit" value="Nick is Kewl">
+                        <input type="submit" value="SubmitButton">
                     </div>
         <jsp:include page="footer.jsp"/>
     </body>
