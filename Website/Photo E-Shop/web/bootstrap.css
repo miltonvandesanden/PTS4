@@ -6854,3 +6854,8 @@ button.close {
 #projectform
 {
 }
+
+#projectdiv{
+    display:inline-block;
+    width:600px;
+}

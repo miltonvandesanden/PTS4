@@ -39,7 +39,8 @@
             
 
             <form id="projectform" action="${pageContext.request.contextPath}/projectoverviewclass" method="post" enctype="multipart/form-data">
-                <TABLE id = "projecttable" BORDER =1 id=""left>
+                <div id="projectdiv" >
+                <TABLE id = "projecttable" BORDER =1 id="left">
                     <TR>
                         <TH>Select</TH>
                         <TH>Name</TH>
@@ -47,6 +48,8 @@
                         <TH>Start</TH>
                         <TH>End</TH>
                     </TR>
+                    
+                
         <%
             Cookie[] cookies = request.getCookies();
             Database db = new Database();
@@ -76,8 +79,10 @@
         <% 
             } 
         %>
-            </TABLE>  
-            
+            </TABLE> 
+            <input type="button" name="deleteproject" value="Delete Selected Project" class="break"/>
+            <input type="button" name="deleteproject" value="Delete Selected Project" class="break"/>
+            </div>
             <div id="right">
                 <label for="name" class="nobreak">Name</label><input type="text" name="name" class="break"/>
                 <label for="name" class="nobreak">Client</label><input type="text" name="client" class="break"/>
@@ -161,7 +166,7 @@
                 </div>  
   
             </div>
-                    <input type="button" name="deleteproject" value="Delete Selected Project" class="break"/>
+                    
             </form>
             <%
                /*if ("POST".equalsIgnoreCase(request.getMethod())) {
