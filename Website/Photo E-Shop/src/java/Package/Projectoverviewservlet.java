@@ -48,7 +48,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 public class Projectoverviewservlet extends HttpServlet{
     
     private JFrame frame = new JFrame();
-    ProjectOverview po = new ProjectOverview();
+    ProjectOverview po = ProjectOverview.getInstance();
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

@@ -232,7 +232,7 @@ public class Connection
     {
         ArrayList<Project> projects = new ArrayList<>();
         
-        String query = "SELECT PROJECTID, \"Name\", CLIENT, STARTDATE, ENDDATE FROM Project WHERE COMPANYID = " + companyID;
+        String query = "SELECT PROJECTID, \"Name\", CLIENT, STARTDATE, ENDDATE FROM \"Project\" WHERE COMPANYID = " + companyID;
         
         try
         {
@@ -259,7 +259,7 @@ public class Connection
         }
         catch(ClassNotFoundException | SQLException exception)
         {
-            
+            System.out.println("exception");
         }
         finally
         {

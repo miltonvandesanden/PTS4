@@ -4,6 +4,7 @@
     Author     : Stefan
 --%>
 
+<%@page import="BusinessLayer.Project"%>
 <%@page import="BusinessLayer.ProjectOverview"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.awt.image.BufferedImage"%>
@@ -32,7 +33,7 @@
                 Connection connection = new Connection();
                 Database database = new Database();
                 int projectid = 1;
-                ProjectOverview po = new ProjectOverview();
+                ProjectOverview po = ProjectOverview.getInstance();
                 Cookie[] cookies = request.getCookies();
                 Database db = new Database();
                 String email = "test";
@@ -46,10 +47,7 @@
                 po.loadProjects(email);
                 
 
-                if(request.getAttribute("project") != null)
-                {
-                    
-                }
+                
             %>
         </div>
         <div id="content" class="row col-md-12"></div>
@@ -93,10 +91,32 @@
             <input type="submit" name="openproject" value="Open Selected Project" class="break"/>
             </div>
             <div id="right">
-                <label for="name" class="nobreak">Name</label><input type="text" name="name" class="break"/>
-                <label for="name" class="nobreak">Client</label><input type="text" name="client" class="break"/>
-                <label for="name" class="nobreak">Start</label><input type="date" name="startdate" class="break"/>
-                <label for="name" class="nobreak">End</label><input type="date" name="enddate" class="break"/>
+                <%
+                    
+                    Project project = (Project)(request.getAttribute("project"));
+                    
+                    if(project!= null)
+                    {
+                     //select hier ook via de koppeltabel alle images van een project
+                        //select * from Picture where project == selected project id
+                %>
+                        <label for="name" class="nobreak">Name</label><input type="text" name="name" class="break" value="<%= project.getName()%>"/>
+                        <label for="name" class="nobreak">Client</label><input type="text" name="client" class="break" value="<%= project.getClient()%>"/>
+                        <label for="name" class="nobreak">Start</label><input type="date" name="startdate" class="break" value="<%= project.getStartDate() %>"/>
+                        <label for="name" class="nobreak">End</label><input type="date" name="enddate" class="break" value="<%= project.getEndDate() %>"/>
+                <%
+                    }
+                    else
+                    {
+                %>
+                        <label for="name" class="nobreak">Name</label><input type="text" name="name" class="break" value=""/>
+                        <label for="name" class="nobreak">Client</label><input type="text" name="client" class="break" value=""/>
+                        <label for="name" class="nobreak">Start</label><input type="date" name="startdate" class="break" value=""/>
+                        <label for="name" class="nobreak">End</label><input type="date" name="enddate" class="break" value=""/>
+                <%
+                    }
+                %>
+                
                 <input type="submit" value="Save"/>
                 
             </div>
@@ -108,7 +128,7 @@
                             <TH>Images</TH>
                         </TR>
                         <%
-                            String project = "test";//selected project uit projectengridview
+                            //String project = "test";//selected project uit projectengridview
                             if(db.Connect())
                             {
                                 //resultset = db.GetQuery("select images from project where projectname = '" + project +  "'"); //vervangen door variable
@@ -139,7 +159,7 @@
                             <TH>Emails</TH>
                         </TR>
                         <%
-                            project = "test";//selected project uit projectengridview
+                            //project = "test";//selected project uit projectengridview
                         try    
                         {
                             File file = new File("test.txt");
