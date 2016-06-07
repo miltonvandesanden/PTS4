@@ -16,7 +16,9 @@ import java.util.Date;
  */
 public class ProjectOverview
 {
+    private static volatile ProjectOverview instance;
     private Connection connection;
+    
     private ArrayList<Project> projects;
     
     public ProjectOverview()
@@ -31,6 +33,21 @@ public class ProjectOverview
         {
             
         }
+    }
+    
+    public static ProjectOverview getInstance()
+    {
+        if(instance == null)
+        {
+            synchronized (ProjectOverview.class)
+            {
+                if(instance == null)
+                {
+                    instance = new ProjectOverview();
+                }
+            }
+        }
+        return instance;
     }
     
     public void loadProjects(String username)
@@ -133,4 +150,9 @@ public class ProjectOverview
         }
         return success;
     }
+    
+    /*public boolean updateProject(int projectID, int companyID, String name, String client,Date startDate, Date endDate)
+    {
+        
+    }*/
 }

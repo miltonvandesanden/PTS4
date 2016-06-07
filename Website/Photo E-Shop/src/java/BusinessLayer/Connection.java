@@ -461,4 +461,13 @@ public class Connection
         
         return isPhotographer;
     }
+    
+    /*public boolean updateProject(int projectID, int companyID, String name, String client,Date startDate, Date endDate)
+    {
+        boolean success = false;
+        String query = "UPDATE Project SET ";
+        
+        
+        return success;
+    }*/
 }
