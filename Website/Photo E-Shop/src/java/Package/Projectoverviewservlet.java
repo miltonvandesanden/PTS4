@@ -6,6 +6,7 @@
 package Package;
 
 import BusinessLayer.Connection;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -80,6 +81,7 @@ public class Projectoverviewservlet extends HttpServlet{
                     try
                     { 
                         Part filePart = request.getPart("fileupload");
+                        Image image = ImageIO.read(filePart.getInputStream());
                        // Parse the request to get file items.
                        //List fileItems = upload.parseRequest((RequestContext) request);
 
@@ -115,9 +117,8 @@ public class Projectoverviewservlet extends HttpServlet{
 //                              fi.write( file ) ;
 //                              BufferedImage in = ImageIO.read(file);
                               //select project id van selected project
-                              //String INSERT_PICTURE = "INSERT INTO \"Picture\"(\"PictureID\", \"ProjectID\", \"Height\", \"Width\", \"colorType\", \"picture\") VALUES (PictureSequence.nextval, 1,"+ in.getHeight() + ", " + in.getWidth()  + ", 'Color', ?)";
-                            String INSERT_PICTURE = "INSERT INTO \"PICTURE\"(\"PICTUREID\", \"PROJECTID\", \"HEIGHT\", \"WIDTH\", \"COLORTYPE\", \"PICTURE\") VALUES (PictureSequence.nextval, 1, 500, 500, 'Color', ?)";
-
+                            //String INSERT_PICTURE = "INSERT INTO \"PICTURE\"(\"PICTUREID\", \"PROJECTID\", \"HEIGHT\", \"WIDTH\", \"COLORTYPE\", \"PICTURE\") VALUES (PictureSequence.nextval, 1, 500, 500, 'Color', ?)";
+                            String INSERT_PICTURE = "INSERT INTO \"PICTURE\"(\"PICTUREID\", \"PROJECTID\", \"HEIGHT\", \"WIDTH\", \"COLORTYPE\", \"PICTURE\") VALUES (PictureSequence.nextval, 1,"+ image.getHeight(null) +","+ image.getWidth(null) +", 'Color', ?)";
                               //FileInputStream fis = null;
                               InputStream is = null;
                               PreparedStatement ps = null;
