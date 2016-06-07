@@ -41,7 +41,7 @@ public class Project
         emails = new ArrayList<>();
     }
     
-        public Project(int projectID, int companyID, String name, String client, Date startDate, Date endDate)
+    /*public Project(int projectID, int companyID, String name, String client, Date startDate, Date endDate)
     {   
         this.projectID = projectID;
         this.companyID = companyID;
@@ -52,7 +52,7 @@ public class Project
         
         pictures = new ArrayList<>();
         emails = new ArrayList<>();
-    }
+    }*/
 
     
     public int getProjectID()
@@ -169,6 +169,5 @@ public class Project
             
         }
         return succes;
-
     }
 }

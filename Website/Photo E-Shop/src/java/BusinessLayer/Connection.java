@@ -246,7 +246,7 @@ public class Connection
                     {
                         int projectID = resultSet.getInt("ProjectID");
                         
-                        Project project = new Project(projectID, companyID, resultSet.getString("name"), resultSet.getString("client"), resultSet.getDate("startDate"), resultSet.getDate("endDate"));
+                        Project project = new Project(this, projectID, companyID, resultSet.getString("name"), resultSet.getString("client"), resultSet.getDate("startDate"), resultSet.getDate("endDate"));
                         
                         project.setPictures(getPicturesFromProject(projectID));
                         
