@@ -6,6 +6,7 @@
 package Package;
 
 import BusinessLayer.Connection;
+import BusinessLayer.ProjectOverview;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -45,6 +46,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 public class Projectoverviewservlet extends HttpServlet{
     
     private JFrame frame = new JFrame();
+    //ProjectOverview po = new ProjectOverview();
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -182,10 +184,10 @@ public class Projectoverviewservlet extends HttpServlet{
         {
         
         }
-        String p =request.getParameter("openproject");
+        
         if(request.getParameter("openproject")!=null)
         {
-
+            //Project project = 
         }
         
         if(request.getParameter("Save")!=null)

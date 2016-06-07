@@ -73,7 +73,7 @@
             {
         %>
             <TR>
-                <TD><input type="radio" name="select" value="select"></td></TD>
+                <TD><input type="radio" name="select" value="<%= resultset.getInt("CompanyId") %>"></td></TD>
                 <TD><%= resultset.getString("Name") %> </TD> 
                 <TD><%= resultset.getString("Client") %> </TD> 
                 <TD><%= resultset.getString("StartDate") %> </TD> 
