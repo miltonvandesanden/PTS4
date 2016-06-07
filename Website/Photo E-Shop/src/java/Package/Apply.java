@@ -43,10 +43,12 @@ public class Apply extends HttpServlet {
 
     final String username = "Info.ECopy@gmail.com";
     final String password = "ECopyCactus";
+    private JFrame JF = new JFrame();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
+            JF.setAlwaysOnTop(true);
             String newEmail;
 
             //IsNewEmail returns a String
@@ -76,25 +78,29 @@ public class Apply extends HttpServlet {
 
                             Transport.send(message);
 
-                            JOptionPane.showMessageDialog(new JFrame(), "Your request has been send.");
+                            JOptionPane.showMessageDialog(JF, "Your request has been send.");
                             response.sendRedirect("index.jsp");
 
                         } catch (MessagingException e) {
                             throw new RuntimeException(e);
                         }
                     }
-                } else {
-                    JOptionPane.showMessageDialog(new JFrame(), "Unfortunately we weren't able to add you to our registry, try again later.");
+                } 
+                else {
+                    JOptionPane.showMessageDialog(JF, "Unfortunately we weren't able to add you to our registry, try again later.");
                     response.sendRedirect("apply.jsp");
                 }
-            } else {
-                JOptionPane.showMessageDialog(new JFrame(), newEmail);
+            } 
+            else {
+                JOptionPane.showMessageDialog(JF, newEmail);
                 response.sendRedirect("apply.jsp");
             }
 
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) {
             Logger.getLogger(Apply.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } 
+        catch (ClassNotFoundException ex) {
             Logger.getLogger(Apply.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -108,7 +114,8 @@ public class Apply extends HttpServlet {
             ResultSet Email = database.GetQuery(PS);
             if (Email.next()) {
                 return "Your email has already been used.";
-            } else {
+            } 
+            else {
                 System.out.println("Email reeds niet in gebruik");
                 return null;
             }
@@ -162,5 +169,4 @@ public class Apply extends HttpServlet {
         }
         return salt.toString();
     }
-    
 }
