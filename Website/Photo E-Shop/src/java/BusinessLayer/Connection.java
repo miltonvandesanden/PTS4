@@ -28,7 +28,7 @@ public class Connection
     {
         boolean success = false;
         
-        String createProjectQuery = "INSERT INTO \"Project\"(CompanyID, \"Name\", Client, StartDate, EndDate) VALUES (" + companyID + ", " + projectName + ", " + clientName + ", to_date(" + startDate.getDate() + "-" + startDate.getMonth() + "-" + startDate.getYear() + ", 'DD-Mon-YY'), to_date(" + endDate.getDate() + "-" + endDate.getMonth() + "-" + endDate.getYear() + ", 'DD-Mon-YY'));";
+        String createProjectQuery = "INSERT INTO \"Project\"(PROJECTID, COMPANYID, \"Name\", CLIENT, STARTDATE, ENDDATE) VALUES (PictureSequence.nextval, " + companyID + ", " + projectName + ", " + clientName + ", to_date(" + startDate.getDate() + "-" + startDate.getMonth() + "-" + startDate.getYear() + ", 'DD-Mon-YY'), to_date(" + endDate.getDate() + "-" + endDate.getMonth() + "-" + endDate.getYear() + ", 'DD-Mon-YY'));";
         
         try
         {
@@ -55,7 +55,7 @@ public class Connection
         if(username != null && password != null)
         {
             //String LogInQuery = "SELECT * FROM Company WHERE username = '" + username + "' AND password = '" + password + "'";
-            String LogInQuery = "SELECT * FROM \"User\" WHERE Email = '" + username + "' AND \"Password\" = '" + password + "'";
+            String LogInQuery = "SELECT * FROM \"User\" WHERE EMAIL = '" + username + "' AND \"Password\" = '" + password + "'";
             try
             {
                 //success = true;
@@ -74,7 +74,7 @@ public class Connection
                                 {
                                     int UserID = resultSet.getInt("UserID");
                                 
-                                    String checkAcceptedQuery = "SELECT * FROM Company WHERE UserID = " + UserID + " AND isAccepted = 1";
+                                    String checkAcceptedQuery = "SELECT * FROM COMPANY WHERE USERID = " + UserID + " AND ISACCEPTED = 1";
                                 
                                     ResultSet resultSet2 = database.GetQuery(checkAcceptedQuery);
                                 
@@ -115,7 +115,7 @@ public class Connection
     public boolean deleteProject(int projectID)
     {
         boolean result = false;
-        String query = "DELETE FROM \"Project\" WHERE ProjectID = " + projectID;
+        String query = "DELETE FROM \"Project\" WHERE PROJECTID = " + projectID;
         
         try
         {
@@ -147,8 +147,8 @@ public class Connection
     public boolean deletePicture(int pictureID)
     {
         boolean result = false;
-        String query = "DELETE FROM Picture_User WHERE pictureID = " + pictureID;
-        String query2 = "DELETE FROM Picture WHERE pictureID = " + pictureID;
+        String query = "DELETE FROM PICTURE_USER WHERE PICTUREID = " + pictureID;
+        String query2 = "DELETE FROM PICTURE WHERE PICTUREID = " + pictureID;
         try
         {
             if(database.Connect())
@@ -189,7 +189,7 @@ public class Connection
         
         if(!username.isEmpty())
         {
-            String query = "SELECT companyID FROM Company WHERE UserID = (SELECT UserID FROM \"User\" WHERE Email = '" + username + "')";
+            String query = "SELECT COMPANYID FROM COMPANY WHERE USERID = (SELECT USERID FROM \"User\" WHERE EMAIL = '" + username + "')";
 
             try
             {
@@ -208,7 +208,7 @@ public class Connection
                     }         
                 }
             }
-            catch(Exception exception)
+            catch(ClassNotFoundException | SQLException exception)
             {
 
             }
@@ -232,7 +232,7 @@ public class Connection
     {
         ArrayList<Project> projects = new ArrayList<>();
         
-        String query = "SELECT ProjectID, \"Name\", Client, StartDate, EndDate FROM Project WHERE CompanyID = " + companyID;
+        String query = "SELECT PROJECTID, \"Name\", CLIENT, STARTDATE, ENDDATE FROM Project WHERE COMPANYID = " + companyID;
         
         try
         {
@@ -257,7 +257,7 @@ public class Connection
                 }       
             }
         }
-        catch(Exception exception)
+        catch(ClassNotFoundException | SQLException exception)
         {
             
         }
@@ -286,7 +286,7 @@ public class Connection
             {
                 if(database.Connect())
                 {
-                    String query = "SELECT PictureID, Height Width, colorType, Picture FROM Picture WHERE ProjectID = " + projectID;
+                    String query = "SELECT PICTUREID, HEIGHT, WIDTH, COLORTYPE, PICTURE FROM PICTURE WHERE PROJECTID = " + projectID;
                     
                     ResultSet resultSet = database.GetQuery(query);
                     
@@ -306,7 +306,7 @@ public class Connection
             }
             else
             {
-                String query = "SELECT PictureID, Height Width, colorType, Picture FROM Picture WHERE ProjectID = " + projectID;
+                String query = "SELECT PICTUREID, HEIGHT, WIDTH, COLORTYPE, PICTURE FROM PICTURE WHERE PROJECTID = " + projectID;
 
                 ResultSet resultSet = database.GetQuery(query);
 
@@ -324,7 +324,7 @@ public class Connection
                 }
             }
         }
-        catch(Exception exception)
+        catch(SQLException | ClassNotFoundException exception)
         {
             
         }    
@@ -342,7 +342,7 @@ public class Connection
             {
                 if(database.Connect())
                 {
-                    String query = "SELECT Email FROM User WHERE UserID = (SELECT UserID FROM Picture_User WHERE PictureID = " + pictureID + ")";
+                    String query = "SELECT EMAIL FROM User WHERE USERID = (SELECT USERID FROM PICTURE_USER WHERE PICTUREID = " + pictureID + ")";
                     
                     ResultSet resultSet = database.GetQuery(query);
                     
@@ -357,7 +357,7 @@ public class Connection
             }
             else
             {
-                String query = "SELECT Email FROM User WHERE UserID = (SELECT UserID FROM Picture_User WHERE PictureID = " + pictureID + ")";
+                String query = "SELECT EMAIL FROM User WHERE USERID = (SELECT USERID FROM PICTURE_USER WHERE PICTUREID = " + pictureID + ")";
 
                 ResultSet resultSet = database.GetQuery(query);
 
@@ -370,7 +370,7 @@ public class Connection
                 }
             }
         }
-        catch(Exception exception)
+        catch(SQLException | ClassNotFoundException exception)
         {
             
         }     
@@ -381,7 +381,7 @@ public class Connection
     public boolean InsertPicture(int ProjectID, int Height, int Width, String ColorType, Blob Picture)
     {
         boolean success = false;
-        String createImageQuery = "INSERT INTO \"Picture\"(\"PictureID\", \"ProjectID\", \"Height\", \"Width\", \"colorType\", \"picture\") VALUES (PictureSequence.nextval" + ProjectID + ", " + Height + ", " + Width + ", " + ColorType + ", "+ Picture + ")";
+        String createImageQuery = "INSERT INTO \"PICTURE\"(\"PICTUREID\", \"PROJECTID\", \"HEIGHT\", \"WIDTH\", \"COLORTYPE\", \"PICTURE\") VALUES (PictureSequence.nextval, " + ProjectID + ", " + Height + ", " + Width + ", " + ColorType + ", "+ Picture + ")";
         
         try
         {
@@ -418,7 +418,7 @@ public class Connection
         if(username != null)
         {
             //String LogInQuery = "SELECT * FROM Company WHERE username = '" + username + "' AND password = '" + password + "'";
-            String LogInQuery = "SELECT * FROM Company WHERE username = '" + username + "' AND isAccepted = 1";
+            String LogInQuery = "SELECT * FROM COMPANY WHERE USERID = '(SELECT USERID FROM User WHERE EMAIL = '" + username + "') AND ISACCEPTED = 1";
             try
             {
                 //success = true;
