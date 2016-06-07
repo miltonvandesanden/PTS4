@@ -90,6 +90,16 @@ public class ProjectOverview
         return projects;
     }
     
+    public Project getProject(int projectID)
+    {
+        for(Project project : projects)
+        {
+            if(project.getProjectID() == projectID)
+            {
+            }
+        }
+    }
+    
     public boolean deletePicture(int projectID, int pictureID)
     {
         boolean success = false;
