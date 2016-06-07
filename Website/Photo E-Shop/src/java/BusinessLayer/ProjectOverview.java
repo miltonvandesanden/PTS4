@@ -92,13 +92,17 @@ public class ProjectOverview
     
     public Project getProject(int projectID)
     {
+        Project result = null;
+        
         for(Project project : projects)
         {
             if(project.getProjectID() == projectID)
             {
-                return project;
+                result = project;
             }
         }
+        
+        return result;
     }
     
     public boolean deletePicture(int projectID, int pictureID)
