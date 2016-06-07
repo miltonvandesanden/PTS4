@@ -19,7 +19,7 @@ public class ProjectOverview
     private Connection connection;
     private ArrayList<Project> projects;
     
-    public ProjectOverview() throws SQLException
+    public ProjectOverview()
     {
         projects = new ArrayList<>();
         
