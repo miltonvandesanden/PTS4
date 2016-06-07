@@ -45,13 +45,13 @@
                  //String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(pict);                 
                  System.out.println(pict.toString());
                  System.out.println(bl.toString());
-                 response.setContentType("text/html");
+                 response.setContentType("text/png");
                  OutputStream o = response.getOutputStream();
         %>
         <table style="margin: 0px; margin-top: 15px;">
         <tr>
         <td>
-            <img id="logo" scr="<%o.write(pict); o.flush();%>" />
+            <img class= "PhotoPreview" id="logo" scr="<%o.write(pict); o.flush();%>" />
         </td>
         </tr>
         </table>
