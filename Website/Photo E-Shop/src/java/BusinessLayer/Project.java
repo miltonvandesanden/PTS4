@@ -157,6 +157,10 @@ public class Project
             {
                 colorTypeString = "blackWhite";
             }
+            else
+            {
+                colorTypeString = "undefined";
+            }
             
             succes = connection.InsertPicture(projectID, height, width, colorTypeString, pic);
         }
