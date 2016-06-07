@@ -5,6 +5,7 @@
  */
 package BusinessLayer;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,8 +22,7 @@ public class Project
     private Date startDate;
     private Date endDate;
     
-    //private ArrayList<Picture> pictures
-    private ArrayList<String> emails;
+    private ArrayList<Picture> pictures;
     
     public Project(int projectID, int companyID, String name, String client, Date startDate, Date endDate)
     {
@@ -33,8 +33,7 @@ public class Project
         this.startDate = startDate;
         this.endDate = endDate;
         
-        //pictures = new ArrayList<>();
-        emails = new ArrayList<>();
+        pictures = new ArrayList<>();
     }
     
     public int getProjectID()
@@ -97,44 +96,23 @@ public class Project
         this.endDate = endDate;
     }
     
-//    public ArrayList<Picture> getPictures()
-//    {
-//        return pictures;
-//    }
-    
-//    public void setPictures(ArrayList<Picture> pictures)
-//    {
-//        this.pictures = pictures;
-//    }
-    
-//    public void addPicture(Picture picture)
-//    {
-//        pictures.add(picture);
-//    }
-    
-//    public void removePicture(Picture picture)
-//    {
-//        pictures.remove(picture);
-//    }
-    
-    public ArrayList<String> getEmails()
+    public ArrayList<Picture> getPictures()
     {
-        return emails;
+        return pictures;
     }
     
-    public void setEmails(ArrayList<String> emails)
+    public void setPictures(ArrayList<Picture> pictures)
     {
-        this.emails = emails;
+        this.pictures = pictures;
     }
     
-    public void addEmail(String email)
+    public void addPicture(Picture picture)
     {
-        emails.add(email);
+        pictures.add(picture);
     }
     
-    public void removeEmail(String email)
+    public void removePicture(Picture picture)
     {
-        emails.remove(email);
-    }
-            
+        pictures.remove(picture);
+    }       
 }

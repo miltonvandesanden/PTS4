@@ -194,6 +194,156 @@ public class Connection
         
         return companyId;
     }
+
+    public ArrayList<Project> getProjectsFromUser(int companyID)
+    {
+        ArrayList<Project> projects = new ArrayList<>();
+        
+        String query = "SELECT ProjectID, \"Name\", Client, StartDate, EndDate FROM Project WHERE CompanyID = " + companyID;
+        
+        try
+        {
+            if(database.Connect())
+            {
+                ResultSet resultSet = database.GetQuery(query);
+                
+                if(resultSet != null)
+                {
+                    while(resultSet.next())
+                    {
+                        int projectID = resultSet.getInt("ProjectID");
+                        
+                        Project project = new Project(projectID, companyID, resultSet.getString("name"), resultSet.getString("client"), resultSet.getDate("startDate"), resultSet.getDate("endDate"));
+                        
+                        project.setPictures(getPicturesFromProject(projectID));
+                        
+                        projects.add(project);
+                        
+                        
+                    }
+                }       
+            }
+        }
+        catch(Exception exception)
+        {
+            
+        }
+        finally
+        {
+            try
+            {
+                database.Close();
+            }
+            catch(Exception exception)
+            {
+                
+            }
+        }
+        
+        return projects;
+    }
+    
+    public ArrayList<Picture> getPicturesFromProject(int projectID)
+    {
+        ArrayList<Picture> pictures = new ArrayList<>();
+        
+        try
+        {
+            if(database.myConn.isClosed())
+            {
+                if(database.Connect())
+                {
+                    String query = "SELECT PictureID, Height Width, colorType, Picture FROM Picture WHERE ProjectID = " + projectID;
+                    
+                    ResultSet resultSet = database.GetQuery(query);
+                    
+                    if(resultSet != null)
+                    {
+                        while(resultSet.next())
+                        {
+                            int pictureID = resultSet.getInt("PictureID");
+                            Picture picture = new Picture(pictureID, projectID, resultSet.getInt("Height"), resultSet.getInt("Width"), resultSet.getInt("colorType"), resultSet.getBlob("picture"));
+                            
+                            picture.setEmails(getEmailsFromPicture(pictureID));
+                            
+                            pictures.add(picture);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                String query = "SELECT PictureID, Height Width, colorType, Picture FROM Picture WHERE ProjectID = " + projectID;
+
+                ResultSet resultSet = database.GetQuery(query);
+
+                if(resultSet != null)
+                {
+                    while(resultSet.next())
+                    {
+                        int pictureID = resultSet.getInt("PictureID");
+                        Picture picture = new Picture(pictureID, projectID, resultSet.getInt("Height"), resultSet.getInt("Width"), resultSet.getInt("colorType"), resultSet.getBlob("picture"));
+
+                        picture.setEmails(getEmailsFromPicture(pictureID));
+                        
+                        pictures.add(picture);
+                    }
+                }
+            }
+        }
+        catch(Exception exception)
+        {
+            
+        }    
+        
+        return pictures;
+    }
+    
+    public ArrayList<String> getEmailsFromPicture(int pictureID)
+    {
+        ArrayList<String> emails = new ArrayList<>();
+        
+        try
+        {
+            if(database.myConn.isClosed())
+            {
+                if(database.Connect())
+                {
+                    String query = "SELECT Email FROM User WHERE UserID = (SELECT UserID FROM Picture_User WHERE PictureID = " + pictureID + ")";
+                    
+                    ResultSet resultSet = database.GetQuery(query);
+                    
+                    if(resultSet != null)
+                    {
+                        while(resultSet.next())
+                        {
+                            emails.add(resultSet.getString("Email"));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                String query = "SELECT Email FROM User WHERE UserID = (SELECT UserID FROM Picture_User WHERE PictureID = " + pictureID + ")";
+
+                ResultSet resultSet = database.GetQuery(query);
+
+                if(resultSet != null)
+                {
+                    while(resultSet.next())
+                    {
+                        emails.add(resultSet.getString("Email"));
+                    }
+                }
+            }
+        }
+        catch(Exception exception)
+        {
+            
+        }     
+        
+        return emails;
+    }
     
     public boolean InsertPicture(int ProjectID, int Height, int Width, String ColorType, Blob Picture)
     {

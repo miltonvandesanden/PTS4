@@ -8,8 +8,6 @@ package BusinessLayer;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -20,7 +18,7 @@ public class ProjectOverview
     private Connection connection;
     private ArrayList<Project> projects;
     
-    public ProjectOverview()
+    public ProjectOverview() throws SQLException
     {
         projects = new ArrayList<>();
         
@@ -28,9 +26,27 @@ public class ProjectOverview
         {
             connection = new Connection();
         }
-        catch (SQLException ex)
+        catch(Exception exception)
         {
-            Logger.getLogger(ProjectOverview.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+    }
+    
+    public void loadProjectsFromDb(String username)
+    {
+        projects = new ArrayList<>();
+        try
+        {
+            int companyId = connection.getCompanyID(username);
+
+            if(companyId != -1)
+            {
+                projects = connection.getProjectsFromUser(companyId);
+            }            
+        }
+        catch(Exception exception)
+        {
+            
         }
     }
     

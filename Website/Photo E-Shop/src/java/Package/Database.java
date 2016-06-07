@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class Database 
 {
 
-        Connection myConn;
+        public Connection myConn;
         Statement myStmt;
         ResultSet myRs;
         //ResultSet test = null;
