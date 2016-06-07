@@ -397,7 +397,14 @@ public class Connection
         }
         finally
         {
-            
+            try
+            {
+                database.Close();
+            }
+            catch(Exception exception)
+            {
+                
+            }
         }
         return success;
     }

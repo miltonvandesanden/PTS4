@@ -141,25 +141,25 @@ public class Project
         return success;
     }
     
-    public boolean createPicture(int pictureID, int projectID, int height, int width, int colorType, Blob pic)
+    public boolean createPicture(int projectID, int height, int width, int colorType, Blob pic)
     {
         boolean succes = false;
         
         try
         {
-            String colorTypeString = "";
+            String colorTypeString;
             
-            if(colorType == 0)
+            switch (colorType)
             {
-                colorTypeString = "color";
-            }
-            else if(colorType == 1)
-            {
-                colorTypeString = "blackWhite";
-            }
-            else
-            {
-                colorTypeString = "undefined";
+                case 0:
+                    colorTypeString = "color";
+                    break;
+                case 1:
+                    colorTypeString = "blackWhite";
+                    break;
+                default:
+                    colorTypeString = "undefined";
+                    break;
             }
             
             succes = connection.InsertPicture(projectID, height, width, colorTypeString, pic);

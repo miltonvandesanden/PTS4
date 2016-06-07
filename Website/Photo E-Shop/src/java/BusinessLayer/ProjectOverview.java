@@ -120,7 +120,7 @@ public class ProjectOverview
         return success;
     }
     
-    public boolean createPicture(int projectID, int pictureID, int height, int width, int colorType, Blob pic)
+    public boolean createPicture(int projectID, int height, int width, int colorType, Blob pic)
     {
         boolean success = false;
         
@@ -128,10 +128,9 @@ public class ProjectOverview
         {
             if(project.getProjectID() == projectID)
             {
-                //success = project.createPicture();
+                success = project.createPicture(projectID, height, width, colorType, pic);
             }
         }
         return success;
     }
-    
 }
