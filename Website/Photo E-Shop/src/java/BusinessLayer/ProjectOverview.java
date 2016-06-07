@@ -96,6 +96,7 @@ public class ProjectOverview
         {
             if(project.getProjectID() == projectID)
             {
+                return project;
             }
         }
     }
