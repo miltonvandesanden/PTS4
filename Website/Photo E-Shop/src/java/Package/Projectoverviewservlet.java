@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -43,9 +44,12 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 @MultipartConfig
 public class Projectoverviewservlet extends HttpServlet{
     
+    private JFrame frame = new JFrame();
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        frame.setAlwaysOnTop(true);
         if(request.getParameter("submit")!=null)
         {
             File file ;
@@ -118,8 +122,9 @@ public class Projectoverviewservlet extends HttpServlet{
 //                              BufferedImage in = ImageIO.read(file);
                               //select project id van selected project
                             //String INSERT_PICTURE = "INSERT INTO \"PICTURE\"(\"PICTUREID\", \"PROJECTID\", \"HEIGHT\", \"WIDTH\", \"COLORTYPE\", \"PICTURE\") VALUES (PictureSequence.nextval, 1, 500, 500, 'Color', ?)";
+                            //projectid moet selected projectid worden
                             String INSERT_PICTURE = "INSERT INTO \"PICTURE\"(\"PICTUREID\", \"PROJECTID\", \"HEIGHT\", \"WIDTH\", \"COLORTYPE\", \"PICTURE\") VALUES (PictureSequence.nextval, 1,"+ image.getHeight(null) +","+ image.getWidth(null) +", 'Color', ?)";
-                              //FileInputStream fis = null;
+                            //FileInputStream fis = null;
                               InputStream is = null;
                               PreparedStatement ps = null;
                               try 
@@ -133,6 +138,7 @@ public class Projectoverviewservlet extends HttpServlet{
                                 ps.setBlob(1, is);
                                 ps.executeUpdate();
                                 database.myConn.commit();
+                                JOptionPane.showMessageDialog(frame, "De afbeelding is succesvol geupload.");
                               } 
                                 finally 
                                 {
@@ -161,13 +167,15 @@ public class Projectoverviewservlet extends HttpServlet{
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null, "Er is iets fout gegaan probeer het opnieuw");
+                    JOptionPane.showMessageDialog(frame, "Er is iets fout gegaan probeer het opnieuw");
                 }
             }
             catch(Exception ex)
             {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
+                JOptionPane.showMessageDialog(frame, ex.getMessage());
             }
+            
+            response.sendRedirect("projectoverview.jsp");
         }
         
         if(request.getParameter("deleteproject")!=null)
