@@ -144,6 +144,39 @@ public class Connection
         return result;
     }
     
+    public boolean deletePicture(int pictureID)
+    {
+        boolean result = false;
+        String query = "DELETE FROM Picture_User WHERE pictureID = " + pictureID;
+        String query2 = "DELETE FROM Picture WHERE pictureID = " + pictureID;
+        try
+        {
+            if(database.Connect())
+            {
+                database.deleteQuery(query);
+                database.deleteQuery(query2);
+                result = true;
+            }
+        }
+        catch(Exception exception)
+        {
+            
+        }
+        finally
+        {
+            try
+            {
+                database.Close();
+            }
+            catch(Exception exception)
+            {
+                
+            }
+        }
+        
+        return result;
+    }
+    
     /*public int getCompanyID(String username) throws ClassNotFoundException
     {
         int companyID = -1;

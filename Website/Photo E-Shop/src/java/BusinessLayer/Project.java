@@ -15,17 +15,21 @@ import java.util.Date;
  */
 public class Project
 {
+    private Connection connection;
+    
     private int projectID;
     private int companyID;
     private String name;
     private String client;
     private Date startDate;
     private Date endDate;
-    
     private ArrayList<Picture> pictures;
+    private ArrayList<String> emails;
     
-    public Project(int projectID, int companyID, String name, String client, Date startDate, Date endDate)
+    public Project(Connection connection, int projectID, int companyID, String name, String client, Date startDate, Date endDate)
     {
+        this.connection = connection;
+        
         this.projectID = projectID;
         this.companyID = companyID;
         this.name = name;
@@ -34,7 +38,22 @@ public class Project
         this.endDate = endDate;
         
         pictures = new ArrayList<>();
+        emails = new ArrayList<>();
     }
+    
+        public Project(int projectID, int companyID, String name, String client, Date startDate, Date endDate)
+    {   
+        this.projectID = projectID;
+        this.companyID = companyID;
+        this.name = name;
+        this.client = client;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        
+        pictures = new ArrayList<>();
+        emails = new ArrayList<>();
+    }
+
     
     public int getProjectID()
     {
@@ -105,14 +124,47 @@ public class Project
     {
         this.pictures = pictures;
     }
-    
-    public void addPicture(Picture picture)
+
+    public boolean deletePicture(int pictureID)
     {
-        pictures.add(picture);
+        boolean success = false;
+        
+        try
+        {
+            success = connection.deletePicture(pictureID);
+        }
+        catch(Exception exception)
+        {
+            
+        }
+        
+        return success;
     }
     
-    public void removePicture(Picture picture)
+    public boolean createPicture(int pictureID, int projectID, int height, int width, int colorType, Blob pic)
     {
-        pictures.remove(picture);
-    }       
+        boolean succes = false;
+        
+        try
+        {
+            String colorTypeString;
+            
+            if(colorType == 0)
+            {
+                colorTypeString = "color";
+            }
+            else if(colorType == 1)
+            {
+                colorTypeString = "blackWhite";
+            }
+            
+            succes = connection.InsertPicture(ProjectID, Height, Width, String ColorType, Blob Picture);
+        }
+        catch(Exception exception)
+        {
+            
+        }
+        return succes;
+
+    }
 }

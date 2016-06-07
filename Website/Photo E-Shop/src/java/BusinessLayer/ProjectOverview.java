@@ -5,6 +5,7 @@
  */
 package BusinessLayer;
 
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class ProjectOverview
         }
     }
     
-    public void loadProjectsFromDb(String username)
+    public void loadProjects(String username)
     {
         projects = new ArrayList<>();
         try
@@ -83,4 +84,38 @@ public class ProjectOverview
         
         return success;
     }
+        
+    public ArrayList<Project> getProjects()
+    {
+        return projects;
+    }
+    
+    public boolean deletePicture(int projectID, int pictureID)
+    {
+        boolean success = false;
+        
+        for(Project project : projects)
+        {
+            if(project.getProjectID() == projectID)
+            {
+                success = project.deletePicture(pictureID);
+            }
+        }
+        
+        return success;
+    }
+    
+    public boolean createPicture(int projectID, int pictureID, int height, int width, int colorType, Blob pic)
+    {
+        boolean success = false;
+        
+        for(Project project : projects)
+        {
+            if(project.getProjectID() == projectID)
+            {
+                success = project.createPicture();
+            }
+        }
+    }
+    
 }

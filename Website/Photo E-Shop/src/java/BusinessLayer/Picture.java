@@ -136,12 +136,7 @@ public class Picture
     {
         return pic;
     }
-    
-    public void setPic(Blob pics)
-    {
-        this.pic = pic;
-    }
-    
+        
     public ArrayList<String> getEmails()
     {
         return emails;
@@ -150,21 +145,5 @@ public class Picture
     public void setEmails(ArrayList<String> emails)
     {
         this.emails = emails;
-    }
-    
-    public void addEmail(String email)
-    {
-        if(!emails.contains(email))
-        {
-            emails.add(email);
-        }
-    }
-    
-    public void removeEmail(String email)
-    {
-        if(emails.contains(email))
-        {
-            emails.remove(email);
-        }
-    }
+    }    
 }
