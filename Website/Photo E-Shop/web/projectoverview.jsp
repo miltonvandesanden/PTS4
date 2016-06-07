@@ -44,6 +44,12 @@
                     }
                 }
                 po.loadProjects(email);
+                
+
+                if(request.getAttribute("project") != null)
+                {
+                    
+                }
             %>
         </div>
         <div id="content" class="row col-md-12"></div>
@@ -67,13 +73,13 @@
             ResultSet resultset = null;
             if(db.Connect())
             {
-                resultset = db.GetQuery("select \"Name\", Client, StartDate, EndDate from \"Project\" where CompanyID =(select CompanyId from Company where UserID = (Select UserID from \"User\" where Email = '" + email + "'))"); //vervangen door variable
+                resultset = db.GetQuery("select Projectid, \"Name\", Client, StartDate, EndDate from \"Project\" where CompanyID =(select CompanyId from Company where UserID = (Select UserID from \"User\" where Email = '" + email + "'))"); //vervangen door variable
             }
             while (resultset.next())
             {
         %>
             <TR>
-                <TD><input type="radio" name="select" value="<%= resultset.getInt("CompanyId") %>"></td></TD>
+                <TD><input type="radio" name="selectproject" value="<%= resultset.getInt("Projectid") %>"></td></TD>
                 <TD><%= resultset.getString("Name") %> </TD> 
                 <TD><%= resultset.getString("Client") %> </TD> 
                 <TD><%= resultset.getString("StartDate") %> </TD> 

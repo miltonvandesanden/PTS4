@@ -6,6 +6,7 @@
 package Package;
 
 import BusinessLayer.Connection;
+import BusinessLayer.Project;
 import BusinessLayer.ProjectOverview;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -25,6 +26,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,7 +48,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 public class Projectoverviewservlet extends HttpServlet{
     
     private JFrame frame = new JFrame();
-    //ProjectOverview po = new ProjectOverview();
+    ProjectOverview po = new ProjectOverview();
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -187,7 +189,18 @@ public class Projectoverviewservlet extends HttpServlet{
         
         if(request.getParameter("openproject")!=null)
         {
-            //Project project = 
+            try
+            {
+                String[] selectresults = request.getParameterValues("selectproject");
+                Project project = po.getProject(Integer.parseInt(selectresults[0]));
+                request.setAttribute("project", project);
+                request.getRequestDispatcher("projectoverview.jsp").forward(request, response);
+            }
+            catch(Exception ex)
+            {
+                JOptionPane.showMessageDialog(frame, ex.getMessage());
+            }
+            
         }
         
         if(request.getParameter("Save")!=null)
