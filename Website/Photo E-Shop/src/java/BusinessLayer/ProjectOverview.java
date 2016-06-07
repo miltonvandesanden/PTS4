@@ -113,9 +113,10 @@ public class ProjectOverview
         {
             if(project.getProjectID() == projectID)
             {
-                success = project.createPicture();
+                //success = project.createPicture();
             }
         }
+        return success;
     }
     
 }

@@ -147,7 +147,7 @@ public class Project
         
         try
         {
-            String colorTypeString;
+            String colorTypeString = "";
             
             if(colorType == 0)
             {
@@ -158,7 +158,7 @@ public class Project
                 colorTypeString = "blackWhite";
             }
             
-            succes = connection.InsertPicture(ProjectID, Height, Width, String ColorType, Blob Picture);
+            succes = connection.InsertPicture(projectID, height, width, colorTypeString, pic);
         }
         catch(Exception exception)
         {
