@@ -146,12 +146,23 @@ public class Project
         return endDate;
     }
     
-    public void setEndDate(Date endDate)
+    public boolean setEndDate(Date endDate)
     {
+        boolean success = false;
+        
         if(endDate.after(startDate))
         {
-            this.endDate = endDate;
+            try
+            {
+                success = connection.setEndDateOfProject(projectID, endDate);
+            }
+            catch(Exception exception)
+            {
+                
+            }
         }
+        
+        return success;
     }
     
     public ArrayList<Picture> getPictures()
@@ -162,6 +173,22 @@ public class Project
     public void setPictures(ArrayList<Picture> pictures)
     {
         this.pictures = pictures;
+    }
+    
+    public boolean setPicturesInDatabase(ArrayList<Picture> pictures)
+    {
+        boolean success = false;
+        
+        try
+        {
+            success = connection.setPicturesOfProject(this, pictures);
+        }
+        catch(Exception exception)
+        {
+
+        }
+        
+        return success;
     }
 
     public boolean deletePicture(int pictureID)
@@ -208,5 +235,21 @@ public class Project
             
         }
         return succes;
+    }
+    
+    public boolean addEmail(String email)
+    {
+        boolean success = false;
+        
+        try
+        {
+            success = connection.addEmailToProject(projectID, email);
+        }
+        catch(Exception exception)
+        {
+            
+        }
+        
+        return success;
     }
 }
