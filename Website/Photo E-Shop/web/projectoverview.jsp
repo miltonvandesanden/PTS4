@@ -28,6 +28,32 @@
     </head>
     <body>
         <jsp:include page="header.jsp"/>
+        <script type="text/javascript">
+            function validateForm() 
+            {
+                var a = document.forms["myForm"]["Name"].value;
+                var b = document.forms["myForm"]["Client"].value;
+                var c = document.forms["myForm"]["StartDate"].value;
+                var d = document.forms["myForm"]["EndDate"].value;
+                if (a == null || a == "") {
+                    alert("Name must be filled out");
+                    return false;
+                }
+                if (b == null || b == "") {
+                    alert("Client must be filled out");
+                    return false;
+                }
+                if (c == null || c == "") {
+                    alert("Startdate must be filled out");
+                    return false;
+                }
+                if (d == null || d == "") {
+                    alert("Enddate must be filled out");
+                    return false;
+                }
+                
+            }
+        </script>
         <div class="row col-md-6">
             <%
                 Connection connection = new Connection();
@@ -47,6 +73,7 @@
                 po.loadProjects(email);
                 
 
+
                 
             %>
         </div>
@@ -55,7 +82,7 @@
             
             
 
-            <form id="projectform" action="${pageContext.request.contextPath}/Projectoverviewservlet" method="POST" enctype="multipart/form-data">
+            <form name="myForm" id="projectform" action="${pageContext.request.contextPath}/Projectoverviewservlet" on submit="return validateForm()" method="POST" enctype="multipart/form-data">
                 <div id="projectdiv" >
                 <TABLE id = "projecttable" BORDER =1 id="left">
                     <TR>
@@ -94,16 +121,16 @@
                 <%
                     
                     Project project = (Project)(request.getAttribute("project"));
-                    
+                    request.setAttribute("project", project);
                     if(project!= null)
                     {
                      //select hier ook via de koppeltabel alle images van een project
                         //select * from Picture where project == selected project id
                 %>
                         <label for="name" class="nobreak">Name</label><input type="text" name="name" class="break" value="<%= project.getName()%>"/>
-                        <label for="name" class="nobreak">Client</label><input type="text" name="client" class="break" value="<%= project.getClient()%>"/>
-                        <label for="name" class="nobreak">Start</label><input type="date" name="startdate" class="break" value="<%= project.getStartDate() %>"/>
-                        <label for="name" class="nobreak">End</label><input type="date" name="enddate" class="break" value="<%= project.getEndDate() %>"/>
+                        <label for="client" class="nobreak">Client</label><input type="text" name="client" class="break" value="<%= project.getClient()%>"/>
+                        <label for="startdate" class="nobreak">Start</label><input type="date" name="startdate" class="break" value="<%= project.getStartDate() %>"/>
+                        <label for="endddate" class="nobreak">End</label><input type="date" name="enddate" class="break" value="<%= project.getEndDate() %>"/>
                 <%
                     }
                     else
@@ -117,7 +144,7 @@
                     }
                 %>
                 
-                <input type="submit" value="Save"/>
+                <input type="submit" name ="Save" value="Save" onclick="validatForm()"/>
                 
             </div>
             <div id="upload">

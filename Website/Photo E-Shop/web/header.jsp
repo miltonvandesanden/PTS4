@@ -9,10 +9,13 @@
 <%@page import="java.util.ResourceBundle"%>
 <%@page import="java.util.Locale"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="Languages.Language" />
 <!DOCTYPE html>
-<html>
+<html lang="${language}">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>E-Copy</title>
@@ -21,56 +24,48 @@
     <body>
         <div class="row">
             <nav class="navbar navbar-default navbar-fixed-top">
-            <%--<form>
-                <select id="language" name="language" onchange="submit()">
-                    <option value="" ${language == '' ? 'selected' : ''}>English</option>
-                    <option value="nl" ${language == 'nl' ? 'selected' : ''}>Nederlands</option>
-                </select>
-            </form>--%>
                 <div class="language">
-                    <a href="LogIn.jsp"> <!-- Dutch -->
-                        <div id="lan_nl">                    
-                        </div>                                          
-                    </a>   
-                    <a href="LogIn.jsp"> <!-- English -->
-                        <div id="lan_eng">
-                        </div>
-                    </a>
+                    <form>
+                        <select id="language" name="language" onchange="submit()">
+                            <option value="en" ${language == 'en' ? 'selected' : ''} style="background:url(images/EN.png) no-repeat; padding-left: 35px;">English</option>
+                            <option value="nl" ${language == 'nl' ? 'selected' : ''} style="background:url(images/NL.png) no-repeat; padding-left: 35px;">Nederlands</option>
+                        </select>
+                    </form>
                 </div>
                 <div id="Inlog">
-                        <%
-                            Cookie[] cookies = request.getCookies();
-                            boolean loggedIn = false;
+                    <%
+                        Cookie[] cookies = request.getCookies();
+                        boolean loggedIn = false;
                             
-                            if(cookies != null)
+                        if(cookies != null)
+                        {
+                            for(Cookie cookie : cookies)
                             {
-                                for(Cookie cookie : cookies)
+                                if(cookie.getName().equals("Email"))
                                 {
-                                    if(cookie.getName().equals("Email"))
-                                    {
-                                        //String email = cookie.getValue();
-                                        loggedIn = true;
-                                        %>
+                                    //String email = cookie.getValue();
+                                    loggedIn = true;
+                                    %>
                                         <label><% out.print(cookie.getValue()); %></label>
-                                        <%                                            
-                                    }                                        
-                                }
+                                    <%                                            
+                                }                                        
                             }
+                        }
 
-                            if(loggedIn)
-                            {
-                                %>
+                        if(loggedIn)
+                        {
+                            %>
                                 <a href="LogIn.jsp">Log out</a>
-                                <%
-                            }
-                            else
-                            {
-                                %>
+                            <%
+                        }
+                        else
+                        {
+                            %>
                                 <label>niet ingelogd</label>
                                 <a href="LogIn.jsp">Log In</a>
-                                <%
-                            }
-                            %>
+                            <%
+                        }
+                    %>
                 </div>
                 <div class="container row">
                     <div class="col-md-2">
@@ -78,7 +73,7 @@
                             <img id="logo" src="images/logo.jpg"/>
                         </a>
                     </div>
-                    <div id="wrapper" class="col-md-10">
+                    <div id="wrapper" class="col-md-8">
                         <div class="collapse navbar-collapse">
                             <br/>
                             <ul class="nav navbar-nav">
@@ -94,12 +89,15 @@
                                 <li>
                                     <a href="PhotoProfile.jsp">Photo Profile</a>
                                 </li>
+                                <li>
+                                    <fmt:message key="header.nav.about" />
+                                </li>
                             </ul>
                         </div>                     
                     </div>
                 </div>
                 <div>
-
+                    
                 </div>
             </nav>
             <br/>

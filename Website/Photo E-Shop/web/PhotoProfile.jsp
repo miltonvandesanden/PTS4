@@ -3,6 +3,7 @@
     Created on : 17-mei-2016, 11:58:19
     Author     : Nick
 --%>
+<%@page import="BusinessLayer.PhotoProfile"%>
 <%@page import="java.io.FileOutputStream"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.io.File"%>
@@ -30,13 +31,9 @@
         <form method="post" action="${pageContext.request.contextPath}/PhotoProfileServlet">
         <table style="margin: 0px; margin-top: 15px;">        
         <%
-            Database db = new Database();
-            BufferedImage img = null;
+            Database db = new Database();            
             ResultSet resultSet = null;
-            StringBuffer sb = new StringBuffer(); //used to make a path
-            sb.append("C:\\Temp\\");
-            sb.append("test");
-            String path;
+            PhotoProfile photo = new PhotoProfile();
             if(db.Connect())
             {
                 Statement stmt = db.myConn.createStatement();
@@ -44,35 +41,19 @@
             }
              while (resultSet.next())
              {
-                 int imgId = resultSet.getInt(1);
-                 int count = 1;
-                 sb.append(count); //make every image have an original name
-                 Blob b = resultSet.getBlob(6);
-                 count += 1;
-                 path = sb.toString(); //set path to temp folder
-                 byte[] baa= b.getBytes(1, (int)b.length());
-                 //FileOutputStream fos=new FileOutputStream(path+".png"); //write image to path as png
-                 //fos.write(baa);
-                 //fos.close();
-                 //img = ImageIO.read(new File(path +".png")); 
-                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                 ByteArrayInputStream bais = new ByteArrayInputStream(baa);
-                 img = ImageIO.read(bais);
-                 ImageIO.write( img, "png", baos ); //write the image so it's in the baos
-                 baos.flush();
-                 baa = baos.toByteArray();//load all bytes in the image
-                 baos.close();
-                 String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(baa);//make a string with the bytes                 
+                 String b64 = photo.GetAllImages(resultSet);
+                 int imgId = resultSet.getInt(1);                             
         %>   
-        <tr>
+        <tr id="afstand">
             <td>
                 <input type="radio" name="selectedimage" value="<%=imgId%>">
             </td>
-        <td>
-            <img name="<%=imgId %>" src="data:image/jpg;base64, <%=b64%>" width="80px" height="80px" alt="Visruth.jpg not found" /><br>
-            <!-- load the string and revert it to bytes -->          
-        </td>    
-        </tr>
+        <td >
+            <img  name="<%=imgId %>" src="data:image/jpg;base64, <%=b64%>" width="80px" height="80px" alt="Visruth.jpg not found" /><br>
+            <!-- load the string and revert it to bytes -->      
+            <br/>
+        </td> 
+        </tr>        
         <%        
              }          
         %>        
