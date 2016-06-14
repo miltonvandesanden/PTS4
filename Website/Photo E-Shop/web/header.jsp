@@ -55,14 +55,14 @@
                         if(loggedIn)
                         {
                             %>
-                                <a href="LogIn.jsp">Log out</a>
+                                <a href="LogIn.jsp"><fmt:message key="header.nav.logout" /></a>
                             <%
                         }
                         else
                         {
                             %>
                                 <label>niet ingelogd</label>
-                                <a href="LogIn.jsp">Log In</a>
+                                <a href="LogIn.jsp"><fmt:message key="header.nav.login" /></a>
                             <%
                         }
                     %>

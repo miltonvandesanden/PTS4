@@ -16,7 +16,7 @@
     <body>
         <jsp:include page="header.jsp"/>
         <div id="content" class="row col-md-12">
-            <h1>Home</h1>
+            <h1><fmt:message key="index.label.welcome" /></h1>
         </div>
         <jsp:include page="footer.jsp"/>
     </body>

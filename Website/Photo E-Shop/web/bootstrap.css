@@ -3627,7 +3627,6 @@ tbody.collapse.in {
 }
 .dropup .caret,
 .navbar-fixed-bottom .dropdown .caret {
-  content: "";
   border-top: 0;
   border-bottom: 4px dashed;
   border-bottom: 4px solid \9;
@@ -6784,7 +6783,7 @@ button.close {
 
 #content
 {
-    
+    margin: 0px;
 }
 
 .language
