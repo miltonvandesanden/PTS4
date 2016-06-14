@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class Database 
 {
 
-        Connection myConn;
+        public Connection myConn;
         Statement myStmt;
         ResultSet myRs;
         //ResultSet test = null;
@@ -58,7 +58,6 @@ public class Database
         // query =  select * from \"User\"
         public ResultSet GetQuery(String query) throws SQLException
         {
-            System.out.println("HALP");
             try
             {
                 myStmt = myConn.createStatement();
@@ -126,6 +125,24 @@ public class Database
             
         }
         
+        public boolean deleteQuery(String query)
+        {
+            boolean success = false;
+            try
+            {
+                myStmt = myConn.createStatement();
+                myStmt.executeUpdate(query);
+                
+                success = true;
+            }
+            catch(Exception exception)
+            {
+                
+            }
+            
+            return success;
+        }
+        
         public boolean InsertQuery(PreparedStatement query) throws SQLException
         {
             try
@@ -144,7 +161,6 @@ public class Database
             {
                 throw ex;
             }
-            
         }
         
         public void Close()

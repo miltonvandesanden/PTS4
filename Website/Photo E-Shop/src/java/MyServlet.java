@@ -82,11 +82,17 @@ public class MyServlet extends HttpServlet {
             {
                 try
                 {
-                    if(connection.CheckLogIn(request.getParameter("fEmail"), request.getParameter("fPassword")))
+                    if(connection.CheckLogIn(request.getParameter("fEmail"), request.getParameter("fPassword")) && connection.getCompanyID(request.getParameter("fEmail")) != -1)
                     {
-                        Cookie cookie = new Cookie("Email", request.getParameter("fEmail"));
-                        cookie.setMaxAge(20*60);
-                        response.addCookie(cookie);
+                        
+                        Cookie cookieUsername = new Cookie("Email", request.getParameter("fEmail"));
+                        cookieUsername.setMaxAge(20*60);
+                        response.addCookie(cookieUsername);
+                        
+                        Cookie cookieCompanyID = new Cookie("companyID", Integer.toString(connection.getCompanyID(request.getParameter("fEmail"))));
+                        cookieCompanyID.setMaxAge(20*60);
+                        response.addCookie(cookieCompanyID);
+                        
                         response.sendRedirect("index.jsp");
                     }
                     else

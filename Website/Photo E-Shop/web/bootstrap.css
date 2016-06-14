@@ -6835,15 +6835,15 @@ button.close {
 }
 #picturepart
 {
-    
+    display:inline-block;
 }
 #emailpart{
-    
+    display:inline-block;
 }
 #upload{
     float:right;
     clear:both;
-    margin-right: 150px;
+    width: auto;
 }
 #picturetable{
     
@@ -6853,4 +6853,15 @@ button.close {
 }
 #projectform
 {
+}
+
+#projectdiv{
+    display:inline-block;
+    width:600px;
+}
+
+.PhotoPreview{
+    height: 200px;
+    width: 175px;
+    image-resolution: 0dpi;
 }

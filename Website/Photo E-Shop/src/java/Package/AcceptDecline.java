@@ -37,7 +37,7 @@ public class AcceptDecline extends HttpServlet{
         //Connection with mail server
         String username = "Info.ECopy@gmail.com";
         String password = "ECopyCactus";
-           if(request.getParameter("sendChoices") != null) {
+            if(request.getParameter("sendChoices") != null) {
                         Properties props = new Properties();
                         props.put("mail.smtp.auth", "true");
                         props.put("mail.smtp.starttls.enable", "true");
@@ -51,15 +51,15 @@ public class AcceptDecline extends HttpServlet{
                         });
                         
                     
-           //Create Database
-           Database db = null;try{db = new Database(); db.Connect();}catch(Exception ex){}
+            //Create Database
+            Database db = null;try{db = new Database(); db.Connect();}catch(Exception ex){}
            
-           //Handling for all chosen accepted requests
-           String[] Acceptresults = request.getParameterValues("accept");
-           if(Acceptresults != null)
-           {
-               for(String r : Acceptresults)
-               {
+            //Handling for all chosen accepted requests
+            String[] Acceptresults = request.getParameterValues("accept");
+            if(Acceptresults != null)
+            {
+                for(String r : Acceptresults)
+                {
                    //Change value in database
                         try {
                             String query = "UPDATE COMPANY SET IsAccepted = 1 WHERE USERID IN (SELECT \"User\".USERID FROM \"User\" WHERE \"EMAIL\" = '"+r+"')";
@@ -75,22 +75,22 @@ public class AcceptDecline extends HttpServlet{
                                 
                                 Transport.send(message);
                                 
-                                
-                                
-                            } catch (MessagingException e) {
+                            } 
+                            catch (MessagingException e) {
                                 throw new RuntimeException(e);
                             }
-                        } catch (SQLException ex) {
-                       Logger.getLogger(AcceptDecline.class.getName()).log(Level.SEVERE, null, ex);
+                        } 
+                        catch (SQLException ex) {
+                            Logger.getLogger(AcceptDecline.class.getName()).log(Level.SEVERE, null, ex);
                         }
-               }
-           }
+                }
+            }
            //Handling declined requests
            String[] Declineresults = request.getParameterValues("decline");
            if(Declineresults != null)
-           {
+            {
                for(String r : Declineresults)
-               {
+                {
                    //Change value in database
                     try {
                         String query = "UPDATE COMPANY SET IsAccepted = 2 WHERE USERID IN (SELECT \"User\".USERID FROM \"User\" WHERE \"EMAIL\" = '"+r+"')";
@@ -106,15 +106,17 @@ public class AcceptDecline extends HttpServlet{
 
                             Transport.send(message);
 
-                        } catch (MessagingException e) {
+                        } 
+                        catch (MessagingException e) {
                             throw new RuntimeException(e);
                         }
-                    } catch (SQLException ex) {
-                       Logger.getLogger(AcceptDecline.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-               }
-           }
-           response.sendRedirect("index.jsp");
-    }
+                    }   
+                    catch (SQLException ex) {
+                        Logger.getLogger(AcceptDecline.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            response.sendRedirect("index.jsp");
+        }
     }
 }
