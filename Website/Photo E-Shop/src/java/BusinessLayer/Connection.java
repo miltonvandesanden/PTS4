@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 /**
  *
@@ -652,6 +653,32 @@ public class Connection
     {
         boolean success = false;
         
+        
+        
         return success;
+    }
+    
+    public boolean createUser(String email)
+    {
+        boolean success = false;
+        String query = "INSERT INTO User(\"USERID\", \"EMAIL\", \"Password\", \"ISCOMPANY\") VALUES (USERSEQUENCE.nextval, " + email + ", " + RandomGenerator() + ", " + 0 + ")";
+        
+        
+        
+        return success;
+    }
+    
+    public String RandomGenerator() {
+        
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        
+        while (salt.length() < 6) {
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        
+        return salt.toString();
     }
 }
