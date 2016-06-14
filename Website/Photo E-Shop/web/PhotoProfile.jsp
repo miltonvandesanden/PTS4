@@ -50,17 +50,19 @@
                  Blob b = resultSet.getBlob(6);
                  count += 1;
                  path = sb.toString(); //set path to temp folder
-                 byte baa[] = b.getBytes(1, (int)b.length());
-                 FileOutputStream fos=new FileOutputStream(path+".png"); //write image to path as png
-                 fos.write(baa);
-                 fos.close();
-                 img = ImageIO.read(new File(path +".png")); 
+                 byte[] baa= b.getBytes(1, (int)b.length());
+                 //FileOutputStream fos=new FileOutputStream(path+".png"); //write image to path as png
+                 //fos.write(baa);
+                 //fos.close();
+                 //img = ImageIO.read(new File(path +".png")); 
                  ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                 ByteArrayInputStream bais = new ByteArrayInputStream(baa);
+                 img = ImageIO.read(bais);
                  ImageIO.write( img, "png", baos ); //write the image so it's in the baos
                  baos.flush();
-                 byte[] imageInByteArray = baos.toByteArray();//load all bytes in the image
+                 baa = baos.toByteArray();//load all bytes in the image
                  baos.close();
-                 String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(imageInByteArray);//make a string with the bytes                 
+                 String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(baa);//make a string with the bytes                 
         %>   
         <tr>
             <td>
