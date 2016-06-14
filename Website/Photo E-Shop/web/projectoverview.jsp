@@ -146,7 +146,7 @@
                     </table>
 
                     <input type="file"  name="fileupload" value="Upload a file"/>
-                    <input type="submit" name="submit"  value="Upload File" /><!-- insert uploaded image naar database (blob)-->
+                    <input type="submit" name="submit"  value="Upload File" />
                     <input type="submit" name="deleteimage" value="Delete"/>
                     <input type="submit" name="importimage" value="Import"/>
                 </div>       
