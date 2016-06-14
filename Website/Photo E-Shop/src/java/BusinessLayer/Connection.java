@@ -282,29 +282,7 @@ public class Connection
         
         try
         {
-            if(database.myConn.isClosed())
-            {
-                if(database.Connect())
-                {
-                    String query = "SELECT PICTUREID, HEIGHT, WIDTH, COLORTYPE, PICTURE FROM PICTURE WHERE PROJECTID = " + projectID;
-                    
-                    ResultSet resultSet = database.GetQuery(query);
-                    
-                    if(resultSet != null)
-                    {
-                        while(resultSet.next())
-                        {
-                            int pictureID = resultSet.getInt("PictureID");
-                            Picture picture = new Picture(pictureID, projectID, resultSet.getInt("Height"), resultSet.getInt("Width"), resultSet.getInt("colorType"), resultSet.getBlob("picture"));
-                            
-                            picture.setEmails(getEmailsFromPicture(pictureID));
-                            
-                            pictures.add(picture);
-                        }
-                    }
-                }
-            }
-            else
+            if(database.Connect())
             {
                 String query = "SELECT PICTUREID, HEIGHT, WIDTH, COLORTYPE, PICTURE FROM PICTURE WHERE PROJECTID = " + projectID;
 
@@ -318,7 +296,7 @@ public class Connection
                         Picture picture = new Picture(pictureID, projectID, resultSet.getInt("Height"), resultSet.getInt("Width"), resultSet.getInt("colorType"), resultSet.getBlob("picture"));
 
                         picture.setEmails(getEmailsFromPicture(pictureID));
-                        
+
                         pictures.add(picture);
                     }
                 }
@@ -338,24 +316,7 @@ public class Connection
         
         try
         {
-            if(database.myConn.isClosed())
-            {
-                if(database.Connect())
-                {
-                    String query = "SELECT EMAIL FROM User WHERE USERID = (SELECT USERID FROM PICTURE_USER WHERE PICTUREID = " + pictureID + ")";
-                    
-                    ResultSet resultSet = database.GetQuery(query);
-                    
-                    if(resultSet != null)
-                    {
-                        while(resultSet.next())
-                        {
-                            emails.add(resultSet.getString("Email"));
-                        }
-                    }
-                }
-            }
-            else
+            if(database.Connect())
             {
                 String query = "SELECT EMAIL FROM User WHERE USERID = (SELECT USERID FROM PICTURE_USER WHERE PICTUREID = " + pictureID + ")";
 
@@ -474,19 +435,13 @@ public class Connection
     public boolean setNameOfProject(int projectID, String name)
     {
         boolean success = false;
-        String query = "UPDATE \"Project\" SET \"Name\"=" + name + "WHERE PROJECTID=" + name;
+        String query = "UPDATE \"Project\" SET \"Name\"=" + name + "WHERE PROJECTID=" + projectID;
         
         try
         {
-            if(database.myConn.isClosed())
+            if(database.Connect())
             {
-                if(database.Connect())
-                {   
-                    ResultSet resultSet = database.GetQuery(query);
-                    database.InsertQuery(query);
-                    
-                    success = true;
-                }
+                success = database.InsertQuery(query);
             }
         }
         catch(ClassNotFoundException | SQLException exception)
@@ -506,5 +461,67 @@ public class Connection
         }
         
         return success;
+    }
+    
+    public boolean setClientOfProject(int projectID, String client)
+    {
+        boolean success = false;
+        String query = "UPDATE \"Project\" SET CLIENT=" + client + "WHERE PROJECTID=" + projectID;
+        
+        try
+        {
+            if(database.Connect())
+            {
+                success = database.InsertQuery(query);
+            }
+        }
+        catch(ClassNotFoundException | SQLException exception)
+        {
+            System.out.println("exception");
+        }
+        finally
+        {
+            try
+            {
+                database.Close();
+            }
+            catch(Exception exception)
+            {
+                
+            }
+        }
+        
+        return success;        
+    }
+    
+    public boolean setStartDateOfProject(int projectID, Date startDate)
+    {
+        boolean success = false;
+        String query = "UPDATE \"Project\" SET STARTDATE=" + startDate + "WHERE PROJECTID=" + projectID;
+        
+        try
+        {
+            if(database.Connect())
+            {
+                success = database.InsertQuery(query);
+            }
+        }
+        catch(ClassNotFoundException | SQLException exception)
+        {
+            System.out.println("exception");
+        }
+        finally
+        {
+            try
+            {
+                database.Close();
+            }
+            catch(Exception exception)
+            {
+                
+            }
+        }
+        
+        return success;        
     }
 }

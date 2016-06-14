@@ -101,9 +101,20 @@ public class Project
         return client;
     }
     
-    public void setClient(String client)
+    public boolean setClient(String client)
     {
-        this.client = client;
+        boolean success = false;
+        
+        try
+        {
+            success = connection.setClientOfProject(projectID, client);
+        }
+        catch(Exception exception)
+        {
+            
+        }
+        
+        return success;
     }
     
     public Date getStartDate()
@@ -111,12 +122,23 @@ public class Project
         return startDate;
     }
     
-    public void setStartDate(Date startDate)
+    public boolean setStartDate(Date startDate)
     {
+        boolean success = false;
+        
         if(startDate.before(endDate))
         {
-            this.startDate = startDate;
+            try
+            {
+                success = connection.setStartDateOfProject(projectID, startDate);
+            }
+            catch(Exception exception)
+            {
+            
+            }
         }
+        
+        return success;
     }
     
     public Date getEndDate()
