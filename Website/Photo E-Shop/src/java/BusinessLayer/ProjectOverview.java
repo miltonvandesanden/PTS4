@@ -68,7 +68,7 @@ public class ProjectOverview
         }
     }
     
-    public boolean CreateProject(int companyID, String projectName, String clientName, Date startDate, Date endDate) throws SQLException
+    public boolean createProject(int companyID, String projectName, String clientName, Date startDate, Date endDate) throws SQLException
     {
         boolean succes = false;
         
@@ -86,7 +86,7 @@ public class ProjectOverview
         return succes;
     }
     
-    public boolean DeleteProject(int projectID)
+    public boolean deleteProject(int projectID)
     {
         boolean success = false;
         
@@ -151,8 +151,26 @@ public class ProjectOverview
         return success;
     }
     
-    /*public boolean updateProject(int projectID, int companyID, String name, String client,Date startDate, Date endDate)
+    public boolean updateProject(int projectID/*, int companyID*/, String name, String client,Date startDate, Date endDate)
     {
+        boolean success = false;
         
-    }*/
+        try
+        {
+            Project project = getProject(projectID);
+            //project.setCompanyID(companyID);
+            project.setName(name);
+            project.setClient(client);
+            project.setStartDate(startDate);
+            project.setEndDate(endDate);
+            
+            success = true;
+        }
+        catch(Exception exception)
+        {
+            
+        }
+        
+        return success;
+    }
 }

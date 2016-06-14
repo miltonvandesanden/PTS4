@@ -60,29 +60,40 @@ public class Project
         return projectID;
     }
     
-    public void setProjectID(int projectID)
+    /*public void setProjectID(int projectID)
     {
         this.projectID = projectID;
-    }
+    }*/
     
     public int getCompanyID()
     {
         return companyID;
     }
     
-    public void setCompanyID(int companyID)
+    /*public void setCompanyID(int companyID)
     {
         this.companyID = companyID;
-    }
+    }*/
     
     public String getName()
     {
         return name;
     }
     
-    public void setName(String name)
+    public boolean setName(String name)
     {
-        this.name = name;
+        boolean success = false;
+        
+        try
+        {
+            success = connection.setNameOfProject(projectID, name);
+        }
+        catch(Exception exception)
+        {
+            
+        }
+        
+        return success;
     }
     
     public String getClient()
@@ -102,7 +113,10 @@ public class Project
     
     public void setStartDate(Date startDate)
     {
-        this.startDate = startDate;
+        if(startDate.before(endDate))
+        {
+            this.startDate = startDate;
+        }
     }
     
     public Date getEndDate()
@@ -112,7 +126,10 @@ public class Project
     
     public void setEndDate(Date endDate)
     {
-        this.endDate = endDate;
+        if(endDate.after(startDate))
+        {
+            this.endDate = endDate;
+        }
     }
     
     public ArrayList<Picture> getPictures()

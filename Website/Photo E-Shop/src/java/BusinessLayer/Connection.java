@@ -470,4 +470,41 @@ public class Connection
         
         return success;
     }*/
+    
+    public boolean setNameOfProject(int projectID, String name)
+    {
+        boolean success = false;
+        String query = "UPDATE \"Project\" SET \"Name\"=" + name + "WHERE PROJECTID=" + name;
+        
+        try
+        {
+            if(database.myConn.isClosed())
+            {
+                if(database.Connect())
+                {   
+                    ResultSet resultSet = database.GetQuery(query);
+                    database.InsertQuery(query);
+                    
+                    success = true;
+                }
+            }
+        }
+        catch(ClassNotFoundException | SQLException exception)
+        {
+            System.out.println("exception");
+        }
+        finally
+        {
+            try
+            {
+                database.Close();
+            }
+            catch(Exception exception)
+            {
+                
+            }
+        }
+        
+        return success;
+    }
 }
