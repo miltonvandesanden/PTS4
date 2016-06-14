@@ -56,19 +56,16 @@ public class Projectoverviewservlet extends HttpServlet{
         frame.setAlwaysOnTop(true);
         if(request.getParameter("submit")!=null)
         {
-            File file ;
-            int maxFileSize = 5000 * 1024;
-            int maxMemSize = 5000 * 1024;
             Database database = null;
-            Connection connection = null;
-            try {
+            try 
+            {
                 database = new Database();
-                connection = new Connection();
                 database.Connect();
-            } catch (SQLException | ClassNotFoundException ex) {
+            } 
+            catch (SQLException | ClassNotFoundException ex) 
+            {
                 Logger.getLogger(Projectoverviewservlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            String filePath = "C:\\xampp\\tomcat\\webapps\\Photo_E-Shop\\images\\";
             try
             {
                 String contentType = request.getContentType();
@@ -117,7 +114,6 @@ public class Projectoverviewservlet extends HttpServlet{
             {
                 JOptionPane.showMessageDialog(frame, ex.getMessage());
             }
-            
             response.sendRedirect("projectoverview.jsp");
         }
         
