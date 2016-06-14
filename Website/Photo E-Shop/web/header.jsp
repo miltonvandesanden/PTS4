@@ -61,7 +61,7 @@
                         else
                         {
                             %>
-                                <label>niet ingelogd</label>
+                                <label><fmt:message key="header.nav.notloggedin" /></label>
                                 <a href="LogIn.jsp"><fmt:message key="header.nav.login" /></a>
                             <%
                         }
@@ -88,9 +88,6 @@
                                 </li>
                                 <li>
                                     <a href="PhotoProfile.jsp">Photo Profile</a>
-                                </li>
-                                <li>
-                                    <fmt:message key="header.nav.about" />
                                 </li>
                             </ul>
                         </div>                     
