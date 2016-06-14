@@ -6,6 +6,7 @@
 package Package;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -64,6 +65,12 @@ public class AcceptDecline extends HttpServlet{
                         try {
                             String query = "UPDATE COMPANY SET IsAccepted = 1 WHERE USERID IN (SELECT \"User\".USERID FROM \"User\" WHERE \"EMAIL\" = '"+r+"')";
                             db.InsertQuery(query);
+                            ResultSet passwordSet = db.GetQuery("SELECT * FROM \"User\" WHERE \"EMAIL\" = '"+r+"'");
+                            if(!passwordSet.next())
+                            {
+                                System.out.println("Er is iets fout gegaan bij het genereren van het wachtwoord voor dit email.");
+                            }
+                            else{
                             //Send mail
                             try {
                                 Message message = new MimeMessage(session);
@@ -71,6 +78,9 @@ public class AcceptDecline extends HttpServlet{
                                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(r));
                                 message.setSubject("Testmail ECOPY");
                                 message.setText("Dear Sir/Madam, " + " \n\n Your request has been accepted."
+                                        + "\n You can log in to our site by using your email and the password showed below."
+                                        + "\n\n Email: '"+r+"'"
+                                        + "\n Password: "+passwordSet.getString("Password")
                                         + "\n\n Yours faithfully, \n\n E-Copy crew");
                                 
                                 Transport.send(message);
@@ -78,6 +88,7 @@ public class AcceptDecline extends HttpServlet{
                             } 
                             catch (MessagingException e) {
                                 throw new RuntimeException(e);
+                            }
                             }
                         } 
                         catch (SQLException ex) {
