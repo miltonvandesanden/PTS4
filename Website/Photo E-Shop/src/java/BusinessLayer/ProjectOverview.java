@@ -68,7 +68,7 @@ public class ProjectOverview
         }
     }
     
-    public boolean createProject(int companyID, String projectName, String clientName, Date startDate, Date endDate) throws SQLException
+    public boolean createProject(int companyID, String projectName, String clientName, Date startDate, Date endDate)
     {
         boolean succes = false;
         
