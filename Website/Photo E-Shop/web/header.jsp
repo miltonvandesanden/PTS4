@@ -46,7 +46,7 @@
                                     //String email = cookie.getValue();
                                     loggedIn = true;
                                     %>
-                                        <label><% out.print(cookie.getValue()); %></label>
+                                        <label><fmt:message key="header.nav.loggedinas" />: <% out.print(cookie.getValue()); %></label>
                                     <%                                            
                                 }                                        
                             }
