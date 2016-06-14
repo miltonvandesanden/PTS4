@@ -31,6 +31,7 @@
         
         <%
             Database db = new Database();
+            BufferedImage img = null;
             ResultSet resultSet = null;
             StringBuffer sb = new StringBuffer();
             sb.append("C:\\Temp\\");
@@ -53,6 +54,13 @@
                  FileOutputStream fos=new FileOutputStream(path+".png");
                  fos.write(baa);
                  fos.close();
+                 img = ImageIO.read(new File(path +".png"));
+                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                 ImageIO.write( img, "png", baos );
+                 baos.flush();
+                 byte[] imageInByteArray = baos.toByteArray();
+                 baos.close();
+                 String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(imageInByteArray);
                  /*Blob bl = resultSet.getBlob(6);
                  byte[] pict = bl.getBytes(1,(int)bl.length());
                  response.setContentType("image/png");                 
@@ -60,7 +68,8 @@
         %>   
         <tr>
         <td>
-            <img alt="" src="<%=path+".png"%>">
+            <img src="data:image/jpg;base64, <%=b64%>" alt="Visruth.jpg not found" />
+            <!--<img alt="" src="</%=path+".png"%>">-->
             <!--<img class= "PhotoPreview" scr="</%o.write(pict);%>" />-->
         </td>    
         </tr>
