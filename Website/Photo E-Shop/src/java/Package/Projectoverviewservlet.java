@@ -17,6 +17,9 @@ import java.io.InputStream;
 import static java.lang.System.out;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -119,7 +122,9 @@ public class Projectoverviewservlet extends HttpServlet{
         
         if(request.getParameter("deleteproject")!=null)
         {
-        
+                String[] selectresults = request.getParameterValues("selectproject");
+                po.deleteProject(Integer.parseInt(selectresults[0]));
+                
         }
         
         if(request.getParameter("openproject")!=null)
@@ -140,8 +145,48 @@ public class Projectoverviewservlet extends HttpServlet{
         
         if(request.getParameter("Save")!=null)
         {
-        
+            
+            Project project = (Project)request.getAttribute("project");
+            if(project != null)
+            {
+                try
+                {
+                    System.out.println(request.getParameter("startdate"));
+                    po.updateProject(project.getProjectID(), request.getParameter("name"), request.getParameter("client"), new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("startdate")), new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("enddate")));
+                }
+                catch(Exception ex)
+                {
+                    
+                }
+            }
+            else
+            {
+                String username = "";
+                for(Cookie cookie : request.getCookies())
+                {
+                    if(cookie.getName().equals("Email"))
+                    {
+                        username = cookie.getValue();
+                    }
+                }
+                if(!username.isEmpty())
+                {
+                    try 
+                    {
+                        po.createProject(po.connection.getCompanyID(username), request.getParameter("name"), request.getParameter("client"), new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("startdate")), new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("enddate")));
+                    } 
+                    catch (SQLException ex) 
+                    {
+                        Logger.getLogger(Projectoverviewservlet.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Projectoverviewservlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+               
+                //roep create aan
+            }
         }
+
         
         if(request.getParameter("deleteimage")!=null)
         {
