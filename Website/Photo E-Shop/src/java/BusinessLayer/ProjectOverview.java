@@ -17,7 +17,7 @@ import java.util.Date;
 public class ProjectOverview
 {
     private static volatile ProjectOverview instance;
-    private Connection connection;
+    public Connection connection;
     
     private ArrayList<Project> projects;
     

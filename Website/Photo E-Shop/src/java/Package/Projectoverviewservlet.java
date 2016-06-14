@@ -175,10 +175,8 @@ public class Projectoverviewservlet extends HttpServlet{
                     {
                         po.createProject(po.connection.getCompanyID(username), request.getParameter("name"), request.getParameter("client"), new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("startdate")), new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("enddate")));
                     } 
-                    catch (SQLException ex) 
+                    catch (ParseException ex) 
                     {
-                        Logger.getLogger(Projectoverviewservlet.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ParseException ex) {
                         Logger.getLogger(Projectoverviewservlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
