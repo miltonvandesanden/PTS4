@@ -6,7 +6,6 @@
 package BusinessLayer;
 
 import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
