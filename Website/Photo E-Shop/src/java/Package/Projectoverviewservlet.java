@@ -56,118 +56,54 @@ public class Projectoverviewservlet extends HttpServlet{
         frame.setAlwaysOnTop(true);
         if(request.getParameter("submit")!=null)
         {
-            File file ;
-            int maxFileSize = 5000 * 1024;
-            int maxMemSize = 5000 * 1024;
             Database database = null;
-            Connection connection = null;
-            try {
+            try 
+            {
                 database = new Database();
-                connection = new Connection();
                 database.Connect();
-            } catch (SQLException | ClassNotFoundException ex) {
+            } 
+            catch (SQLException | ClassNotFoundException ex) 
+            {
                 Logger.getLogger(Projectoverviewservlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            String filePath = "C:\\xampp\\tomcat\\webapps\\Photo_E-Shop\\images\\";
             try
             {
-                // Verify the content type
                 String contentType = request.getContentType();
                 if ((contentType.indexOf("multipart/form-data") >= 0)) 
                 {
-//                    DiskFileItemFactory factory = new DiskFileItemFactory();
-//                    // maximum size that will be stored in memory
-//                    factory.setSizeThreshold(maxMemSize);
-//                    // Location to save data that is larger than maxMemSize.
-//                    factory.setRepository(new File("C:\\xampp\\tomcat\\webapps\\Photo_E-Shop\\images\\"));
-//
-//                    // Create a new file upload handler
-//                    ServletFileUpload upload = new ServletFileUpload((FileItemFactory) factory);
-//                    // maximum file size to be uploaded.
-//                    upload.setSizeMax( maxFileSize );
-                    
                     try
                     { 
                         Part filePart = request.getPart("fileupload");
                         Image image = ImageIO.read(filePart.getInputStream());
-                       // Parse the request to get file items.
-                       //List fileItems = upload.parseRequest((RequestContext) request);
+                        String INSERT_PICTURE = "INSERT INTO \"PICTURE\"(\"PICTUREID\", \"PROJECTID\", \"HEIGHT\", \"WIDTH\", \"COLORTYPE\", \"PICTURE\") VALUES (PictureSequence.nextval, 1,"+ image.getHeight(null) +","+ image.getWidth(null) +", 'Color', ?)";
+                        InputStream is = null;
+                        PreparedStatement ps = null;
+                        try 
+                        {
+                            is = filePart.getInputStream();
+                            ps = database.myConn.prepareStatement(INSERT_PICTURE);
+                            ps.setBlob(1, is);
+                            ps.executeUpdate();
+                            database.myConn.commit();
+                            JOptionPane.showMessageDialog(frame, "De afbeelding is succesvol geupload.");
+                        } 
+                        finally 
+                        {
+                            try
+                            {
+                                ps.close();
+                                is.close();
+                            }
+                            catch(Exception exception)
+                            {
 
-                       // Process the uploaded file items
-                       //Iterator i = fileItems.iterator();
-              //
-              //         out.println("<html>");
-              //         out.println("<head>");
-              //         out.println("<title>JSP File upload</title>");  
-              //         out.println("</head>");
-              //         out.println("<body>");
-//                       while ( i.hasNext () ) 
-//                       {
-//                            FileItem fi = (FileItem)filePart;
-//                            if ( !fi.isFormField () )	
-//                            {
-//                              // Get the uploaded file parameters
-//                              String fieldName = fi.getFieldName();
-//                              String fileName = fi.getName();
-//                              boolean isInMemory = fi.isInMemory();
-//                              long sizeInBytes = fi.getSize();
-//                              // Write the file
-//                              if( fileName.lastIndexOf("\\") >= 0 )
-//                              { 
-//                                file = new File( filePath + 
-//                                fileName.substring( fileName.lastIndexOf("\\"))) ;
-//                              }
-//                              else
-//                              {
-//                                file = new File( filePath + 
-//                                fileName.substring(fileName.lastIndexOf("\\")+1)) ;
-//                              }
-//                              fi.write( file ) ;
-//                              BufferedImage in = ImageIO.read(file);
-                              //select project id van selected project
-                            //String INSERT_PICTURE = "INSERT INTO \"PICTURE\"(\"PICTUREID\", \"PROJECTID\", \"HEIGHT\", \"WIDTH\", \"COLORTYPE\", \"PICTURE\") VALUES (PictureSequence.nextval, 1, 500, 500, 'Color', ?)";
-                            //projectid moet selected projectid worden
-                            String INSERT_PICTURE = "INSERT INTO \"PICTURE\"(\"PICTUREID\", \"PROJECTID\", \"HEIGHT\", \"WIDTH\", \"COLORTYPE\", \"PICTURE\") VALUES (PictureSequence.nextval, 1,"+ image.getHeight(null) +","+ image.getWidth(null) +", 'Color', ?)";
-                            //FileInputStream fis = null;
-                              InputStream is = null;
-                              PreparedStatement ps = null;
-                              try 
-                              {
-                                //fis = new FileInputStream(file);
-                                //fis = filePart.getInputStream();
-                                is = filePart.getInputStream();
-                                //Connection myConn = database.myConn;
-                                ps = database.myConn.prepareStatement(INSERT_PICTURE);
-                                //ps.setBlob(1, fis);
-                                ps.setBlob(1, is);
-                                ps.executeUpdate();
-                                database.myConn.commit();
-                                JOptionPane.showMessageDialog(frame, "De afbeelding is succesvol geupload.");
-                              } 
-                                finally 
-                                {
-                                    try
-                                    {
-                                      ps.close();
-                                      //fis.close();
-                                      is.close();
-                                    }
-                                    catch(Exception exception)
-                                    {
-
-                                    }
-                                }
-                                //insert ook in koppeltabel
-//                                out.println("Uploaded Filename: " + filePath + 
-//                                fileName + "<br>");
-                            //}
-                        //}
-                //         out.println("</body>");
-                //         out.println("</html>");
+                            }
+                        }
                     }
-                    catch(IOException | ServletException | SQLException ex) {
-                         System.out.println(ex);
-                      }
+                    catch(IOException | ServletException | SQLException ex) 
+                    {
+                        System.out.println(ex);
+                    }
                 }
                 else
                 {
@@ -178,7 +114,6 @@ public class Projectoverviewservlet extends HttpServlet{
             {
                 JOptionPane.showMessageDialog(frame, ex.getMessage());
             }
-            
             response.sendRedirect("projectoverview.jsp");
         }
         

@@ -60,29 +60,40 @@ public class Project
         return projectID;
     }
     
-    public void setProjectID(int projectID)
+    /*public void setProjectID(int projectID)
     {
         this.projectID = projectID;
-    }
+    }*/
     
     public int getCompanyID()
     {
         return companyID;
     }
     
-    public void setCompanyID(int companyID)
+    /*public void setCompanyID(int companyID)
     {
         this.companyID = companyID;
-    }
+    }*/
     
     public String getName()
     {
         return name;
     }
     
-    public void setName(String name)
+    public boolean setName(String name)
     {
-        this.name = name;
+        boolean success = false;
+        
+        try
+        {
+            success = connection.setNameOfProject(projectID, name);
+        }
+        catch(Exception exception)
+        {
+            
+        }
+        
+        return success;
     }
     
     public String getClient()
@@ -90,9 +101,20 @@ public class Project
         return client;
     }
     
-    public void setClient(String client)
+    public boolean setClient(String client)
     {
-        this.client = client;
+        boolean success = false;
+        
+        try
+        {
+            success = connection.setClientOfProject(projectID, client);
+        }
+        catch(Exception exception)
+        {
+            
+        }
+        
+        return success;
     }
     
     public Date getStartDate()
@@ -100,9 +122,23 @@ public class Project
         return startDate;
     }
     
-    public void setStartDate(Date startDate)
+    public boolean setStartDate(Date startDate)
     {
-        this.startDate = startDate;
+        boolean success = false;
+        
+        if(startDate.before(endDate))
+        {
+            try
+            {
+                success = connection.setStartDateOfProject(projectID, startDate);
+            }
+            catch(Exception exception)
+            {
+            
+            }
+        }
+        
+        return success;
     }
     
     public Date getEndDate()
@@ -110,9 +146,23 @@ public class Project
         return endDate;
     }
     
-    public void setEndDate(Date endDate)
+    public boolean setEndDate(Date endDate)
     {
-        this.endDate = endDate;
+        boolean success = false;
+        
+        if(endDate.after(startDate))
+        {
+            try
+            {
+                success = connection.setEndDateOfProject(projectID, endDate);
+            }
+            catch(Exception exception)
+            {
+                
+            }
+        }
+        
+        return success;
     }
     
     public ArrayList<Picture> getPictures()
@@ -123,6 +173,22 @@ public class Project
     public void setPictures(ArrayList<Picture> pictures)
     {
         this.pictures = pictures;
+    }
+    
+    public boolean setPicturesInDatabase(ArrayList<Picture> pictures)
+    {
+        boolean success = false;
+        
+        try
+        {
+            success = connection.setPicturesOfProject(this, pictures);
+        }
+        catch(Exception exception)
+        {
+
+        }
+        
+        return success;
     }
 
     public boolean deletePicture(int pictureID)
@@ -169,5 +235,21 @@ public class Project
             
         }
         return succes;
+    }
+    
+    public boolean addEmail(String email)
+    {
+        boolean success = false;
+        
+        try
+        {
+            success = connection.addEmailToProject(projectID, email);
+        }
+        catch(Exception exception)
+        {
+            
+        }
+        
+        return success;
     }
 }

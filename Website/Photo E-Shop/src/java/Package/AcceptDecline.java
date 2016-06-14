@@ -62,13 +62,13 @@ public class AcceptDecline extends HttpServlet{
                 {
                    //Change value in database
                         try {
-                            String query = "UPDATE COMPANY SET IsAccepted = 1 WHERE CompanyID ="+r;
+                            String query = "UPDATE COMPANY SET IsAccepted = 1 WHERE USERID IN (SELECT \"User\".USERID FROM \"User\" WHERE \"EMAIL\" = '"+r+"')";
                             db.InsertQuery(query);
                             //Send mail
                             try {
                                 Message message = new MimeMessage(session);
                                 message.setFrom(new InternetAddress("info.ecopy@gmail.com"));
-                                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("info.ecopy@gmail.com"));
+                                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(r));
                                 message.setSubject("Testmail ECOPY");
                                 message.setText("Dear Sir/Madam, " + " \n\n Your request has been accepted."
                                         + "\n\n Yours faithfully, \n\n E-Copy crew");
@@ -93,13 +93,13 @@ public class AcceptDecline extends HttpServlet{
                 {
                    //Change value in database
                     try {
-                        String query = "UPDATE COMPANY SET IsAccepted = 2 WHERE CompanyID ="+r;
+                        String query = "UPDATE COMPANY SET IsAccepted = 2 WHERE USERID IN (SELECT \"User\".USERID FROM \"User\" WHERE \"EMAIL\" = '"+r+"')";
                         db.InsertQuery(query);
                         //Send mail
                         try {
                             Message message = new MimeMessage(session);
                             message.setFrom(new InternetAddress("info.ecopy@gmail.com"));
-                            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("info.ecopy@gmail.com"));
+                            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(r));
                             message.setSubject("Testmail ECOPY");
                             message.setText("Dear Sir/Madam, " + " \n\n Your request has not been accepted. Please contact us for further information."
                                     + "\n\n Yours faithfully, \n\n E-Copy crew");
