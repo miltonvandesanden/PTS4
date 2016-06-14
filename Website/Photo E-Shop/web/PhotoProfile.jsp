@@ -27,61 +27,58 @@
     </head>
     <body>
         <jsp:include page="header.jsp"/>
-        <table style="margin: 0px; margin-top: 15px;">
-        
+        <form method="post" action="${pageContext.request.contextPath}/PhotoProfileServlet">
+        <table style="margin: 0px; margin-top: 15px;">        
         <%
             Database db = new Database();
             BufferedImage img = null;
             ResultSet resultSet = null;
-            StringBuffer sb = new StringBuffer();
+            StringBuffer sb = new StringBuffer(); //used to make a path
             sb.append("C:\\Temp\\");
             sb.append("test");
             String path;
             if(db.Connect())
             {
                 Statement stmt = db.myConn.createStatement();
-                resultSet = stmt.executeQuery("SELECT * FROM picture");
-                //resultSet = db.GetQuery("SELECT * FROM picture");
+                resultSet = stmt.executeQuery("SELECT * FROM picture");                
             }
              while (resultSet.next())
              {
+                 int imgId = resultSet.getInt(1);
                  int count = 1;
-                 sb.append(count);
+                 sb.append(count); //make every image have an original name
                  Blob b = resultSet.getBlob(6);
                  count += 1;
-                 path = sb.toString();
+                 path = sb.toString(); //set path to temp folder
                  byte baa[] = b.getBytes(1, (int)b.length());
-                 FileOutputStream fos=new FileOutputStream(path+".png");
+                 FileOutputStream fos=new FileOutputStream(path+".png"); //write image to path as png
                  fos.write(baa);
                  fos.close();
-                 img = ImageIO.read(new File(path +".png"));
+                 img = ImageIO.read(new File(path +".png")); 
                  ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                 ImageIO.write( img, "png", baos );
+                 ImageIO.write( img, "png", baos ); //write the image so it's in the baos
                  baos.flush();
-                 byte[] imageInByteArray = baos.toByteArray();
+                 byte[] imageInByteArray = baos.toByteArray();//load all bytes in the image
                  baos.close();
-                 String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(imageInByteArray);
-                 /*Blob bl = resultSet.getBlob(6);
-                 byte[] pict = bl.getBytes(1,(int)bl.length());
-                 response.setContentType("image/png");                 
-                 OutputStream o = response.getOutputStream();*/
+                 String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(imageInByteArray);//make a string with the bytes                 
         %>   
         <tr>
+            <td>
+                <input type="radio" name="selectedimage" value="<%=imgId%>">
+            </td>
         <td>
-            <img src="data:image/jpg;base64, <%=b64%>" alt="Visruth.jpg not found" />
-            <!--<img alt="" src="</%=path+".png"%>">-->
-            <!--<img class= "PhotoPreview" scr="</%o.write(pict);%>" />-->
+            <img name="<%=imgId %>" src="data:image/jpg;base64, <%=b64%>" width="80px" height="80px" alt="Visruth.jpg not found" /><br>
+            <!-- load the string and revert it to bytes -->          
         </td>    
         </tr>
-        <%            
-                //o.flush();
+        <%        
              }          
-        %>   
-        
+        %>        
         </table>
         <div class="col-md-1">
-                        <input type="submit" value="SubmitButton">
+                        <input name="submitButton" type="submit" value="Edit!">
                     </div>
+        </form>
         <jsp:include page="footer.jsp"/>
     </body>
 </html>
