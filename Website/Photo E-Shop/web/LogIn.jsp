@@ -51,11 +51,11 @@
         {
         %>
         <div id="content" class="row col-md-12">
-            <h1>Log-In</h1>
+            <h1><fmt:message key="login.label.head" /></h1>
             <form method="post" name="form1" action="${pageContext.request.contextPath}/MyServlet">
                 <div class="row col-md-12">
                     <div class="col-md-1">
-                        Email:
+                        <fmt:message key="login.label.email" />:
                     </div>
                     <div class="col-md-11">
                         <input type="text" name="fEmail">
@@ -63,7 +63,7 @@
                 </div>
                 <div class="row col-md-12">
                     <div class="col-md-1">
-                        Password:
+                        <fmt:message key="login.label.password" />:
                     </div>
                     <div class="col-md-11">
                         <input type="password" name="fPassword">
@@ -71,7 +71,7 @@
                 </div>
                 <div class="row col-md-12">
                     <div class="col-md-1">
-                        <input type="submit">
+                        <input type="submit" value="<fmt:message key="login.button.submit" />">
                     </div>
                 </div>                
             </form>

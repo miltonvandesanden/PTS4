@@ -57,7 +57,7 @@
                 <input type="radio" name="selectedimage" value="<%=imgId%>">
             </td>
         <td >
-            <img  name="<%=imgId %>" src="data:image/jpg;base64, <%=b64%>" width="80px" height="80px" alt="Visruth.jpg not found" /><br>
+            <img  name="<%=imgId %>" src="data:image/jpg;base64, <%=b64%>" width="80px" height="80px" alt="Visruth.jpg <fmt:message key="photoProfile.label.notFound" />" /><br>
             <!-- load the string and revert it to bytes -->      
             <br/>
         </td> 
@@ -66,9 +66,9 @@
              }          
         %>        
         </table>
-        <div class="col-md-1">
-                        <input name="submitButton" type="submit" value="Edit!">
-                    </div>
+            <div class="col-md-1">
+                <input name="submitButton" type="submit" value="<fmt:message key="photoProfile.button.edit" />">
+            </div>
         </form>
         <jsp:include page="footer.jsp"/>
     </body>

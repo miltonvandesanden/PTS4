@@ -95,11 +95,11 @@
                 <div id="projectdiv" >
                 <TABLE id = "projecttable" BORDER =1 id="left">
                     <TR>
-                        <TH>Select</TH>
-                        <TH>Name</TH>
-                        <TH>Client</TH>
-                        <TH>Start</TH>
-                        <TH>End</TH>
+                        <TH><fmt:message key="project.label.select" /></TH>
+                        <TH><fmt:message key="project.label.name" /></TH>
+                        <TH><fmt:message key="project.label.client" /></TH>
+                        <TH><fmt:message key="project.label.start" /></TH>
+                        <TH><fmt:message key="project.label.end" /></TH>
                     </TR>
                     
                 
@@ -123,8 +123,8 @@
             } 
         %>
             </TABLE> 
-            <input type="submit" name="deleteproject" value="Delete Selected Project" class="break"/>
-            <input type="submit" name="openproject" value="Open Selected Project" class="break"/>
+            <input type="submit" name="deleteproject" value="<fmt:message key="project.button.deleteproject" />" class="break"/>
+            <input type="submit" name="openproject" value="<fmt:message key="project.button.openproject" />" class="break"/>
             </div>
             <div id="right">
                 <%
@@ -136,32 +136,32 @@
                      //select hier ook via de koppeltabel alle images van een project
                         //select * from Picture where project == selected project id
                 %>
-                        <label for="name" class="nobreak">Name</label><input type="text" name="name" class="break" value="<%= project.getName()%>"/>
-                        <label for="client" class="nobreak">Client</label><input type="text" name="client" class="break" value="<%= project.getClient()%>"/>
-                        <label for="startdate" class="nobreak">Start</label><input type="date" name="startdate" class="break" value="<%= project.getStartDate() %>"/>
-                        <label for="endddate" class="nobreak">End</label><input type="date" name="enddate" class="break" value="<%= project.getEndDate() %>"/>
+                        <label for="name" class="nobreak"><fmt:message key="project.label.name" /></label><input type="text" name="name" class="break" value="<%= project.getName()%>"/>
+                        <label for="client" class="nobreak"><fmt:message key="project.label.client" /></label><input type="text" name="client" class="break" value="<%= project.getClient()%>"/>
+                        <label for="startdate" class="nobreak"><fmt:message key="project.label.start" /></label><input type="date" name="startdate" class="break" value="<%= project.getStartDate() %>"/>
+                        <label for="endddate" class="nobreak"><fmt:message key="project.label.end" /></label><input type="date" name="enddate" class="break" value="<%= project.getEndDate() %>"/>
                 <%
                     }
                     else
                     {
                 %>
-                        <label for="name" class="nobreak">Name</label><input type="text" name="name" class="break" value=""/>
-                        <label for="name" class="nobreak">Client</label><input type="text" name="client" class="break" value=""/>
-                        <label for="name" class="nobreak">Start</label><input type="date" name="startdate" class="break" value=""/>
-                        <label for="name" class="nobreak">End</label><input type="date" name="enddate" class="break" value=""/>
+                        <label for="name" class="nobreak"><fmt:message key="project.label.name" /></label><input type="text" name="name" class="break" value=""/>
+                        <label for="name" class="nobreak"><fmt:message key="project.label.client" /></label><input type="text" name="client" class="break" value=""/>
+                        <label for="name" class="nobreak"><fmt:message key="project.label.start" /></label><input type="date" name="startdate" class="break" value=""/>
+                        <label for="name" class="nobreak"><fmt:message key="project.label.end" /></label><input type="date" name="enddate" class="break" value=""/>
                 <%
                     }
                 %>
                 
-                <input type="submit" name ="Save" value="Save" onclick="validatForm()"/>
+                <input type="submit" name ="Save" value="<fmt:message key="project.button.save" />" onclick="validatForm()"/>
                 
             </div>
             <div id="upload">
                 <div id="picturepart">
                     <TABLE id = "picturetable" BORDER =1>
                         <TR>
-                            <th>Select</th>
-                            <TH>Images</TH>
+                            <th><fmt:message key="project.label.select" /></th>
+                            <TH><fmt:message key="project.label.images" /></TH>
                         </TR>
                         <%
                             //String project = "test";//selected project uit projectengridview
@@ -173,7 +173,7 @@
                             {
                         %>
                         <TR>
-                            <TD><input type="checkbox" name="select" value="select"></TD>
+                            <TD><input type="checkbox" name="select" value="<fmt:message key="project.label.select" />"></TD>
                             <TD><!--<%//= resultset.getString("Name") %> --></TD> 
                         </TR>
                         <% 
@@ -181,18 +181,18 @@
                         %>
                     </table>
 
-                    <input type="file"  name="fileupload" value="Upload a file"/>
-                    <input type="submit" name="submit"  value="Upload File" />
-                    <input type="submit" name="deleteimage" value="Delete"/>
-                    <input type="submit" name="importimage" value="Import"/>
+                    <input type="file"  name="fileupload" value="<fmt:message key="project.button.choosefile" />"/>
+                    <input type="submit" name="submit"  value="<fmt:message key="project.button.uploadfile" />" />
+                    <input type="submit" name="deleteimage" value="<fmt:message key="project.button.delete" />"/>
+                    <input type="submit" name="importimage" value="<fmt:message key="project.button.import" />"/>
                 </div>       
-                <input type="submit" name="koppel" value="<-Link->"/>
+                <input type="submit" name="koppel" value="<fmt:message key="project.button.link" />"/>
                 
                 <div id="emailpart">
                     <TABLE id = "emailtable" BORDER =1 id="left">
                         <TR>
-                            <th>Select</th>
-                            <TH>Emails</TH>
+                            <th><fmt:message key="project.label.select" /></th>
+                            <TH><fmt:message key="project.label.emails" /></TH>
                         </TR>
                         <%
                             //project = "test";//selected project uit projectengridview
@@ -214,7 +214,7 @@
                         
                         %>
                         <TR>
-                            <TD><input type="checkbox" name="select" value="select"></TD>
+                            <TD><input type="checkbox" name="select" value="<fmt:message key="project.label.select" />"></TD>
                             <TD><%= line%></TD> 
                         </TR>
                         <% 
@@ -225,9 +225,9 @@
                             }
                         %>
                     </table>
-                    <input type="submit" name="addemail"  value="add" /><!-- insert uploaded image naar database (blob)-->
-                    <input type="submit" name="deleteemail" value="Delete"/>
-                    <input type="submit" name="importemail" value="Import"/>
+                    <input type="submit" name="addemail"  value="<fmt:message key="project.button.addEmail" />" /><!-- insert uploaded image naar database (blob)-->
+                    <input type="submit" name="deleteemail" value="<fmt:message key="project.button.deleteEmail" />"/>
+                    <input type="submit" name="importemail" value="<fmt:message key="project.button.importEmail" />"/>
                 </div>  
   
             </div>

@@ -48,17 +48,17 @@
     <body> 
         <jsp:include page="header.jsp"/>
         <div id="content" class="row col-md-12">
-        <h1>Accept or rebuff applicant</h1>
+        <h1><fmt:message key="acceptApply.label.head" /></h1>
         <!--<div class="container">-->
         <div class="row col-md-12">
         <div class="col-md-1">
         <form method="post" name="form1" action="${pageContext.request.contextPath}/acceptclass">
         <TABLE id = "myTable" BORDER =1>
         <TR>
-            <TH>Accept</TH>
-            <TH>Rebuff</TH>
-            <TH>Name</TH>
-            <TH>Email</TH>
+            <TH><fmt:message key="acceptApply.label.accept" /></TH>
+            <TH><fmt:message key="acceptApply.label.rebuff" /></TH>
+            <TH><fmt:message key="acceptApply.label.name" /></TH>
+            <TH><fmt:message key="acceptApply.label.email" /></TH>
         </TR>
     
         <%
@@ -85,7 +85,7 @@
         </div>   
         </div>        
         </div>
-        <input type ="submit" value="submit" name = "sendChoices"/>
+        <input type ="submit" value="<fmt:message key="acceptApply.button.submit" />" name = "sendChoices"/>
         </form>
         <% 
            //response.sendRedirect("Acceptapply.jsp");

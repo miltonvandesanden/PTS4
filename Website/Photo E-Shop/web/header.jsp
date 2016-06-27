@@ -78,16 +78,16 @@
                             <br/>
                             <ul class="nav navbar-nav">
                                 <li>
-                                    <a href="apply.jsp">Apply</a>
+                                    <a href="apply.jsp"><fmt:message key="header.link.apply" /></a>
                                 </li>
                                 <li>
-                                    <a href="projectoverview.jsp">Project Overview</a>
+                                    <a href="projectoverview.jsp"><fmt:message key="header.link.projectOverview" /></a>
                                 </li>
                                 <li>
-                                    <a href="Acceptapply.jsp">Pending Requests</a>
+                                    <a href="Acceptapply.jsp"><fmt:message key="header.link.pendingRequests" /></a>
                                 </li>
                                 <li>
-                                    <a href="PhotoProfile.jsp">Photo Profile</a>
+                                    <a href="PhotoProfile.jsp"><fmt:message key="header.link.photoProfile" /></a>
                                 </li>
                             </ul>
                         </div>                     
