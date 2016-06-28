@@ -183,6 +183,7 @@ public class Projectoverviewservlet extends HttpServlet{
                
                 //roep create aan
             }
+                request.getRequestDispatcher("projectoverview.jsp").forward(request, response);
         }
 
         
