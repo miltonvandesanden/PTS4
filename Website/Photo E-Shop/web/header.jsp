@@ -73,7 +73,7 @@
                             <img id="logo" src="images/logo.jpg"/>
                         </a>
                     </div>
-                    <div id="wrapper" class="col-md-8">
+                    <div id="wrapperfix" class="fe">
                         <div class="collapse navbar-collapse">
                             <br/>
                             <ul class="nav navbar-nav">

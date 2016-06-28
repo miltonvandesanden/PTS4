@@ -50,7 +50,7 @@
         <div id="content" class="row col-md-12">
         <h1><fmt:message key="acceptApply.label.head" /></h1>
         <!--<div class="container">-->
-        <div class="row col-md-12">
+        <div class="break">
         <div class="col-md-1">
         <form method="post" name="form1" action="${pageContext.request.contextPath}/acceptclass">
         <TABLE id = "myTable" BORDER =1>
@@ -84,7 +84,7 @@
         </TABLE>
         </div>   
         </div>  
-        <div>
+        <div class="break">
         <input type ="submit" value="<fmt:message key="acceptApply.button.submit" />" name = "sendChoices"/>
         </div>
         </div>

@@ -63,7 +63,6 @@
                 
             }
         </script>
-        <div class="row col-md-6">
             <%
                 Connection connection = new Connection();
                 Database database = new Database();
@@ -84,13 +83,7 @@
 
 
                 
-            %>
-        </div>
-        <div id="content" class="row col-md-12"></div>
-            <div></div>    
-            
-            
-
+            %>   
             <form name="myForm" id="projectform" action="${pageContext.request.contextPath}/Projectoverviewservlet" on submit="return validateForm()" method="POST" enctype="multipart/form-data">
                 <div id="projectdiv" >
                 <TABLE id = "projecttable" BORDER =1 id="left">

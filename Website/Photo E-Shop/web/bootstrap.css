@@ -6861,6 +6861,7 @@ button.close {
 }
 #projectform
 {
+    margin-top:35px;
 }
 
 #projectdiv{
@@ -6876,4 +6877,13 @@ button.close {
 
 #afstand{
     margin-bottom: 15px;
+}
+#wrapperfix
+{
+    display:inline-block;
+    width: auto;
+}
+.break
+{
+    clear:both;
 }
