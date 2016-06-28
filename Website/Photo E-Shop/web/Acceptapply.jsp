@@ -83,9 +83,11 @@
         %>
         </TABLE>
         </div>   
-        </div>        
-        </div>
+        </div>  
+        <div>
         <input type ="submit" value="<fmt:message key="acceptApply.button.submit" />" name = "sendChoices"/>
+        </div>
+        </div>
         </form>
         <% 
            //response.sendRedirect("Acceptapply.jsp");
