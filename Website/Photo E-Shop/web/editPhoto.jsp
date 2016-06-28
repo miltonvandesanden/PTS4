@@ -47,14 +47,16 @@
             }
             if (resultSet.next())
             {
-                String b64 = photo.GetAllImages(resultSet);
                 int imgId = resultSet.getInt(1);
                 img = photo.GetSingleImage(resultSet);
-                String b65 = photo.GetBlackAndWhite(resultSet);                
+                String b66 = photo.GetBlackAndWhite(resultSet);    
+                String b65 = photo.GetAllImages(resultSet);
         %>            
-            <img  name="<%=imgId %>" src="data:image/jpg;base64, <%=b65%>" width="80px" height="80px" alt="Visruth.jpg not found" />     
+            <img  name="<%=imgId %>" src="data:image/jpg;base64, <%=b65%>" width="80px" height="80px" alt="Photo.jpg not found" />     
             <fmt:message key="editPhoto.label.height" />: <%=img.getHeight() %>
-            <fmt:message key="editPhoto.label.width" />: <%=img.getWidth() %>           
+            <fmt:message key="editPhoto.label.width" />: <%=img.getWidth() %>
+            </br>
+            <img  name="<%=imgId %>" src="data:image/jpg;base64, <%=b66%>" width="80px" height="80px" alt="Photo.jpg not found" />
         <% 
             }
         }
