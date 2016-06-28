@@ -53,7 +53,7 @@
                 String b65 = photo.GetBlackAndWhite(resultSet);                
         %>            
             <img  name="<%=imgId %>" src="data:image/jpg;base64, <%=b65%>" width="80px" height="80px" alt="Visruth.jpg not found" />     
-            <fmt:message key="editPhoto.label.heigth" />: <%=img.getHeight() %>
+            <fmt:message key="editPhoto.label.height" />: <%=img.getHeight() %>
             <fmt:message key="editPhoto.label.width" />: <%=img.getWidth() %>           
         <% 
             }
